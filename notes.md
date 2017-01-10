@@ -184,6 +184,30 @@
       }
       ```
 
-      
+## Functions and Variable Scope
+### Basic Function Syntax
+  * a function is a procedure that allows the developer to encapsulate code for repeated execution
+  * basic syntax:
+
+      ```
+      function name(parameter) {
+        doSomthing;
+        doMore;
+      }
+      ```
+  * use the `return` keyword to return a value from the function
+  * a unfunction will return `undefined` if their is no return or the no value in the return
+  * a `parameter` is the name applied to a value passed to a function
+  * a `parameter` becomes availble in the function as a local variable
+  * an `argument` is the actual value passed
+  * when defining a function we use parameters to define it
+  * when calling a function we pass arguments in place of the parameters
+
+### Function Invocation and Arguments
+  * functions are invoked by appending `()` to its name as in `functionName();`
+  * function names are local variables that have a function as its value
+  * calling a function with two few arguments does not raise a error
+  * if you don't provide an arugument, its value is `undefined`
+  * extra arguments are ignored
 
 
