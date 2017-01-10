@@ -35,7 +35,7 @@
 
 ### Null
 ### Undefined
-### Variables
+## Variables
   * variable names are case sensitive (JavaScript is case sensitive)
   * name must start with letter, underscore or $
   * letters, numbers and underscores in rest of name
