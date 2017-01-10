@@ -159,5 +159,25 @@
       ```
 
 ## Looping
+  * `while` 
+      * loops evalute an expression and passes control to the block if truthy. 
+      * control is returned to the expression at the end of the block
+      * if still truthy, run the block
+      * continue until condition is falsy
+  * `break` can be used to exit a loop immediately
+  * `continue` will skip the rest of the block and return execution to the top of the loop
+  * `do..while` is similar to while, but will always execute at least once
+
+      ```
+      do {
+        console.log(counter);
+        counter++;
+      } while (counter < 5);
+      ```
+
+  * `for` loops include the initial state, condition and increment expression all at once
+      
+
+      
 
 
