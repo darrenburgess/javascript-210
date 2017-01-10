@@ -142,18 +142,18 @@
         * always use string equality (=== and !==)
 
 ## Conditional Logic
-    * `if (expresion) { // statements } else { // statements }`
-    * the `switch` statement will evaluate each case unless `break` is included in the cases
-        `switch (expression) {
-          case 'value1':
-            // statements;
-            break;
-          case 'value2':
-            // statements;
-            break;
-          default:
-            // statements;
-        }`
+  * `if (expresion) { // statements } else { // statements }`
+  * the `switch` statement will evaluate each case unless `break` is included in the cases
+      `switch (expression) {
+        case 'value1':
+          // statements;
+          break;
+        case 'value2':
+          // statements;
+          break;
+        default:
+          // statements;
+      }`
 
 ## Looping
 
