@@ -176,7 +176,13 @@
       ```
 
   * `for` loops include the initial state, condition and increment expression all at once
+      * any of these elements can be ommited.
       
+      ```
+      for (var i = 0; i < 10; i++) {
+        // do stuff
+      }
+      ```
 
       
 
