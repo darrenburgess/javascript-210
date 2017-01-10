@@ -46,3 +46,9 @@
   * JS is a dynamically typed language
       * a variable can be any type
       * and that type can be changed by assigning a new value
+
+## Operators
+### Assignment
+### Comparison
+### String
+### Logical
