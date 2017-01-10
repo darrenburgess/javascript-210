@@ -144,7 +144,8 @@
 ## Conditional Logic
   * `if (expresion) { // statements } else { // statements }`
   * the `switch` statement will evaluate each case unless `break` is included in the cases
-      `switch (expression) {
+      ```
+      switch (expression) {
         case 'value1':
           // statements;
           break;
@@ -153,7 +154,8 @@
           break;
         default:
           // statements;
-      }`
+      }
+      ```
 
 ## Looping
 
