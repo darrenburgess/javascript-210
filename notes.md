@@ -202,6 +202,7 @@
   * an `argument` is the actual value passed
   * when defining a function we use parameters to define it
   * when calling a function we pass arguments in place of the parameters
+  * functions can be nested within other functions, to just about any depth
 
 ### Function Invocation and Arguments
   * functions are invoked by appending `()` to its name as in `functionName();`
@@ -210,4 +211,50 @@
   * if you don't provide an arugument, its value is `undefined`
   * extra arguments are ignored
 
+### Function Scopes and Lexical Scoping
+## Scope
+  * Global scope - the scope of the entire program, outside of functions
+  * Function scope - functions can access variables in the global scope
+  * Functions inherit all variables in surrounding scopes
+  * variables can be added to a scope via arguments passed to it
+  * variables can also be added with the var keyword
+  * when a variable is assigned in a scope, JS looks for the first available declared variable
+  * if JS does not find the variable, it creates a new global variable (this is generally not desirable)
 
+## Closure
+  * functions retain access to the scope in affect when it is created
+  * this means that if the function is invoked out of scope, it still has access
+  * if the value of a variable changes, the closure/function will see the new value
+
+## Lexical Scoping
+  * The scope of an inner function contains the scope of a parent function
+  * Inner functions contain the scope of the parent function even if the parent has returned
+  * scope is at the function level, but not the block level
+      * so unexecuted block code (like inside a condition) will not effect scope variables
+        but only if they are assigned and not declared
+      * however if the variable is declared in a block, that declaration will
+        be hoisted to the top of the scope  
+
+### Hoisting
+  * In JS, all variables are processed before the code executes a code in a scope.
+  * note that this is only the variable declaration, not its assignment
+  * JS moves the variable declarations to the top of the scope, including function declarations
+  * function declarations are also moved to the top
+  * to avoid confusion, declare variables and functions before they are called.
+
+### Function Declarations and Expressions
+  * a function *declaration* uses the `function` keyword to define a variable to hold the function code
+  * function declarations obey the scoping rules
+  * in this example we create an anonymous (unnamed) function add asign it to the variable `speak`
+  * `speak` can then be used to invoke the function
+
+      ```
+      function speak() {
+           console.log('howdy');
+        }
+      ```
+  * function *expressions* generally involves defining a function and assigning it to a variable
+  * function expressions usually involve anonymous functions
+  * anonymous function is unnamed `var foo = function() { //code }`
+  * named function example `var foo = function bar() { // code }`
+  * function arguments become local variables and are differnt vars from same named outer scope variables
