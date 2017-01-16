@@ -89,15 +89,11 @@ function isPrime(number) {
 }
 
 function primes(max) {
-  result = [];
+  var result = [];
 
   for (i = 0; i <= max; i++) {
     if (isPrime(i)) {
       result.push(i);
-    }
-
-    if (i % 100 === 0) {
-      console.log(i);
     }
   }
 
@@ -232,3 +228,42 @@ function gcd2(array) {
   return first;
 }
 
+// Write a function named checkGoldbach() that uses
+// Goldbach's Conjecture to log every pair of primes
+// that sum to the number supplied as an argument.
+// The conjecture states that "you can express every even
+// integer greater than 2 as the sum of two primes".
+// The function takes as its only parameter, an integer n,
+// and logs all combinations of two prime numbers whose sum
+// is n. Log the prime pairs with the smaller number first.
+// If n is odd or less than 4, your function should log null.
+
+function checkGoldbach(n) {
+  // initialize a result array
+  result = [];
+
+  // guard
+  if (n % 2 !== 0 || n < 4) {
+    return null;
+  }
+
+  // get an array of primes
+  primez = primes(n);
+
+  // build and array of prime pairs that add to n
+  while (primez.length > 0) {
+    m = primez.shift();
+
+    // avoids duplicates by not checking m when greater than 50%
+    if (m < n/2) {
+      diff = n - m;
+
+      // push into array when diff is prime
+      if (isPrime(diff) && m !== diff) {
+        result.push([m, diff]);
+      }
+    }
+  }
+
+  return result;
+}
