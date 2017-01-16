@@ -265,5 +265,30 @@ function checkGoldbach(n) {
     }
   }
 
-  return result;
+  return String(result);
+}
+
+// Write a function that takes a number of rows as the
+// argument n and logs a square of numbers and asterisks.
+// For example, if n = 3, log the following pattern:
+// 1**
+// 12*
+// 123
+
+function pattern(n) {
+  for (i = 1; i <= n; i++) {
+    var line = '';
+
+    for (j = 1; j <= i; j++) {
+      line = line + String(j);
+    }
+
+    mLimit = n - i;
+
+    for (m = 1; m <= mLimit; m++) {
+      line = line + '*';
+    }
+    
+    console.log(line);
+  }
 }
