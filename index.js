@@ -286,9 +286,52 @@ function pattern(n) {
     mLimit = n - i;
 
     for (m = 1; m <= mLimit; m++) {
-      line = line + '*';
+      if (n < 10) {
+        line = line + '*';
+      } else if (n >= 10 && i < 10) {
+        line = line + '*';
+      } else if (n >= 10 && i >= 10) {
+        line = line + '**';
+      }
     }
     
     console.log(line);
   }
+}
+
+// substring functions
+// write indexOf() and lastIndexOf() function that return the position of a substring
+// lastIndexOf() returns the index of the last instance of the string
+
+function indexOf(firstString, secondString) {
+  var lengthFirst = firstString.length;
+  var lengthSecond = secondString.length;
+  var remainingChars;
+  var testWord = '';
+
+  if (lengthSecond > lengthFirst) {
+    return null;  // first can't contain second if it is shorter
+  }
+
+  for (i = 0; i < lengthFirst; i++) {
+    remainingChars = lengthFirst - i;
+
+    if (remainingChars < lengthSecond) {
+      return null; // 
+    }
+
+    for (j = 0; j < lengthSecond; j++) {
+      testWord = testWord + firstString[i + j]; 
+    }
+
+    if (testWord === secondString) {
+      return i;
+    }
+
+    testWord = '';
+  }
+}
+
+function lastIndexOf(firstString, secondString) {
+
 }
