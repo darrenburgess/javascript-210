@@ -310,14 +310,14 @@ function indexOf(firstString, secondString) {
   var testWord = '';
 
   if (lengthSecond > lengthFirst) {
-    return null;  // first can't contain second if it is shorter
+    return -1;  // first can't contain second if it is shorter
   }
 
   for (i = 0; i < lengthFirst; i++) {
     remainingChars = lengthFirst - i;
 
     if (remainingChars < lengthSecond) {
-      return null; // 
+      return -1; // 
     }
 
     for (j = 0; j < lengthSecond; j++) {
@@ -333,5 +333,33 @@ function indexOf(firstString, secondString) {
 }
 
 function lastIndexOf(firstString, secondString) {
+  var lengthFirst = firstString.length;
+  var lengthSecond = secondString.length;
+  var remainingChars;
+  var testWord = '';
+  var index;
 
+  if (lengthSecond > lengthFirst) {
+    return -1;  // first can't contain second if it is shorter
+  }
+
+  for (i = 0; i < lengthFirst; i++) {
+    remainingChars = lengthFirst - i;
+
+    if (remainingChars < lengthSecond && !i) {
+      return -1;
+    }
+
+    for (j = 0; j < lengthSecond; j++) {
+      testWord = testWord + firstString[i + j]; 
+    }
+
+    if (testWord === secondString) {
+      index = i;
+    }
+
+    testWord = '';
+  }
+
+  return index;
 }
