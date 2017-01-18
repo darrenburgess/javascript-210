@@ -414,6 +414,4 @@ function splitString(string, delimiter) {
       tempString += character;
     }
   }
-
-  console.log(tempString);
 }
