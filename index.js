@@ -393,3 +393,27 @@ function trimSpaces(str) {
 
   return finalResult;
 }
+
+function splitString(string, delimiter) {
+  var tempString = '';
+  var len = string.length;
+  var character;
+
+  if (delimiter === undefined) {
+    return 'Error';
+  }
+
+  for (i = 0; i < len; i++) {
+    character = string[i];
+    if (character === delimiter) {
+      console.log(tempString);
+      tempString = '';
+    } else if (delimiter === '') {
+      console.log(character); 
+    } else {
+      tempString += character;
+    }
+  }
+
+  console.log(tempString);
+}
