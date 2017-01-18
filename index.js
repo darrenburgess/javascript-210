@@ -415,3 +415,19 @@ function splitString(string, delimiter) {
     }
   }
 }
+
+function repeat(string, times) {
+  var result = '';
+
+  if (times === 0) {
+    result = '';
+  } else if (isNaN(times) || times < 0) {
+    result = undefined;
+  } else {
+    for (i = 0; i < times; i++) {
+      result += string;
+    }
+  }
+
+  return result;
+}
