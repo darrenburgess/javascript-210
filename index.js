@@ -363,3 +363,33 @@ function lastIndexOf(firstString, secondString) {
 
   return index;
 }
+
+function trimSpaces(str) {
+  var len = str.length;
+  var copy = false;
+  var result = '';
+  var finalResult = '';
+
+  for (i = 0; i < len; i++) {
+    if (str[i] === ' ' && !copy) {
+      continue;
+    }
+
+    copy = true;
+    result = result + str[i];
+  }
+
+  len = result.length - 1;
+  copy = false;
+  
+  for (i = len; i >= 0; i--) {
+    if (result[i] === ' ' && !copy) {
+      continue;
+    }
+
+    copy = true;
+    finalResult = result[i] + finalResult;
+  }
+
+  return finalResult;
+}
