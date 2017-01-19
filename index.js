@@ -433,16 +433,7 @@ function repeat(string, times) {
 }
 
 function startsWith(string, searchString) {
-  var lengthString = string.length;
   var lengthSearchString = searchString.length;
-
-  if (lengthSearchString > lengthString) {
-    return false;
-  }
-
-  if (searchString === '') {
-    return true;
-  }
 
   for (i = 0; i < lengthSearchString; i++) {
     if (string[i] !== searchString[i]) {
