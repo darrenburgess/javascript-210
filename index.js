@@ -443,3 +443,24 @@ function startsWith(string, searchString) {
 
   return true;
 }
+
+function toLowerCase(string) {
+  var character;
+  var result = '';
+  var converted;
+
+  for (i = 0; i < string.length; i++) {
+    character = string[i];
+    
+    if (character >= "A" && character <= "Z") {
+      result += String.fromCharCode(character.charCodeAt(0) + 32);
+    } else {
+      result += character;
+    }
+  }
+
+  return result;
+}
+
+
+
