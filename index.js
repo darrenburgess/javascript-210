@@ -501,7 +501,7 @@ function substring(string, start, end) {
   }
   
   if (end >= length) {
-    end = length - 1;
+    end = length;
   } else if (end === undefined) {
     end = length;
   }
@@ -549,7 +549,13 @@ function testSubstring() {
     result += false + ' ';
   }
 
-  if (substring(string, 8, 20) === "rl") {
+  if (substring(string, 8, 20) === "rld") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 20, 8) === "rld") {
     result += true + ' ';
   } else {
     result += false + ' ';
@@ -561,7 +567,7 @@ function testSubstring() {
     result += false + ' ';
   }
 
-  if (substring(string, 20, 0) === "hello worl") {
+  if (substring(string, 20, 0) === "hello world") {
     result += true + ' ';
   } else {
     result += false + ' ';
