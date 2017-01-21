@@ -462,5 +462,110 @@ function toLowerCase(string) {
   return result;
 }
 
+function substr(string, start, length) {
+  result = '';
 
+  if (start < 0) {
+    start = string.length + start;
+  }
 
+  for (i = start; i < start + length; i++) {
+    if (string[i]) {
+      result += string[i]
+    } else {
+      return result;
+    }
+  }
+
+  return result;
+}
+
+function substring(string, start, end) {
+  var length = string.length;
+  var temp;
+
+  if (start < 0 || isNaN(start)) {
+    start = 0;
+  } else if (start > length) {
+    start = length;
+  }
+
+  if (end < 0 || (isNaN(end) && end !== undefined)) {
+    end = 0;
+  } 
+
+  if (start > end) {
+    temp = start;
+    start = end;
+    end = temp;
+  }
+  
+  if (end >= length) {
+    end = length - 1;
+  } else if (end === undefined) {
+    end = length;
+  }
+
+  return substr(string, start, end - start);
+}
+
+function testSubstring() {
+  var string = 'hello world';
+  var result = ''
+
+  if (substring(string, 2, 4) === "ll") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 4, 2) === "ll") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 2, 2) === "") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 0, -1) === "") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 2) === "llo world") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 'a') === "hello world") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 8, 20) === "rl") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 20, 21) === "") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  if (substring(string, 20, 0) === "hello worl") {
+    result += true + ' ';
+  } else {
+    result += false + ' ';
+  }
+
+  return result;
+}
