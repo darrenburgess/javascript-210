@@ -9,9 +9,9 @@ function rott13(string) {
   }
 
   function letterTypeLimit(chr) {
-    if (chr >= "A" && chr <= "Z") {
+    if (chr === chr.toUpperCase()) {
       return 90;
-    } else if (chr >= 'a' && chr <= 'z') {
+    } else if (chr === chr.toLowerCase()) {
       return 122;
     }
   }
