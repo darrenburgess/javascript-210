@@ -741,3 +741,44 @@ function concat(array1, array2){
   return result;
 }
 
+function arraysEqual(arr1, arr2) {
+  var result;
+  var limit;
+
+  if (arr1.length > arr2.length) {
+    limit = arr1.length;
+  } else if (arr2.length > arr1.length) {
+    limit = arr2.length;
+  } else {
+    limit = arr1.length;
+  }
+
+  for (i = 0; i < limit; i++) {
+    if (arr1[i] === arr2[i]) {
+      result = true;
+    } else {
+      result = false;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function arraysEqual2(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function firstElementOf(arr) {
+
+}
