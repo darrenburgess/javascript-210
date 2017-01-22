@@ -258,3 +258,16 @@
   * anonymous function is unnamed `var foo = function() { //code }`
   * named function example `var foo = function bar() { // code }`
   * function arguments become local variables and are differnt vars from same named outer scope variables
+
+## Arrays
+  * create an array with assignment: `var a = [1,2,3]`
+  * create an array with constructor: `var a = new Array(1,2,3)  // not used often`
+  * arrays are 0-indexed
+  * `a[0]  // 1`
+  * `a[1]  // 2`
+  * arrays values can be modified by accessing the index
+  * items can be added by using and index `a[5] = 'hello';`
+  * js will insert `undefined` values if you skip indexes
+  * undefined valus are also added if you increase the length `a.length = 7;`
+  * arrays are objects `typeof a // 'object'`
+  * or use `Array.isArray(a)  // true`

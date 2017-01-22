@@ -575,3 +575,108 @@ function testSubstring() {
 
   return result;
 }
+
+function lastInArray(arr) {
+  return arr[arr.length - 1];
+}
+
+function rollCall(arr) {
+  for (i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+  }
+}
+
+function arrayReverse(arr) {
+  var result = [];
+  index = 0;
+  for (i = arr.length - 1; i >= 0; i--) {
+    result[index] = arr[i];
+    index++;
+  }
+
+  return result;
+}
+
+function arrayIndexOf(arr, value) {
+  var result = -1;
+
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === value) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function arrayJoin(arr) {
+  var result = '';
+
+  for (var i = 0; i < arr.length; i++) {
+    result += arr[i].toString();
+  }
+
+  return result;
+}
+
+function push(arr, value) {
+  arr[arr.length] = value;
+  return arr.length;
+}
+
+function pop(arr) {
+  result = arr[arr.length - 1];
+  arr.length = arr.length - 1;
+  return result;
+}
+
+function unshift(arr, value) {
+  for (var i = arr.length - 1; i >= 0; i--) {
+    arr[i + 1] = arr[i];
+  }
+
+  arr[0] = value;
+  return arr.length;
+}
+
+function shift(arr) {
+  if (arr.length === 0) {
+    return undefined;
+  }
+
+  var first = array[0];
+
+  for (var i = 1; i < arr.length; i++) {
+    arr[i - 1] = arr[i];
+  }
+
+  arr.length = arr.length - 1;
+  return first;
+}
+
+function indexOf(array, value) {
+  var result = -1;
+
+  for (var i = 0; i <= array.length; i++) {
+    if (array[i] === value) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function lastIndexOf(array, value) {
+  var result = -1
+  var temp;
+
+  for (var i = 0; i <= array.length; i++) {
+    if (array[i] === value) {
+      result = i;
+    }
+  }
+
+  return result;
+}
