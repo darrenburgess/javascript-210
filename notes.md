@@ -282,3 +282,6 @@
       * javascript considers these the same object
   * don't ever use comparison operators `< > <= >=` with arrays
     results will be unexpected
+  * arrays are objects and have a length property.  
+      * this is why we can call `arr.length` without any parenthesis
+      * length is not a method or function. it is a property.
