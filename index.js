@@ -712,6 +712,20 @@ function splice(array, start, deleteCount) {
   return newArray;
 }
 
+function join(array, string) {
+  var result = '';
+
+  for (i = 0; i < array.length; i++) {
+    result += array[i].toString();
+
+    if (i < array.length - 1) {
+      result += string;
+    }
+  }
+
+  return result;
+}
+
 function concat(array1, array2){
   var result = [];
 
@@ -725,14 +739,4 @@ function concat(array1, array2){
 
   return result;
 }
-
-function mutate(value) {
-  value = value + 1;
-  return value;
-}
-
-function mutateArray(a) {
-  a[a.length] = 2;
-}
-
 
