@@ -694,3 +694,21 @@ function slice(array, start, end) {
 
   return result;
 }
+
+function splice(array, start, deleteCount) {
+  var end = start + deleteCount;
+  var newArray = slice(array, start, end)
+
+  for (i = 0; i <= array.length; i++) {
+    if (i < start) {
+      array[i] = array[i]; 
+    } else if (i >= start && i <= end) {
+      array[i] = array[i + deleteCount];
+    }
+  }
+
+  array.length = array.length - deleteCount;
+  
+  return newArray;
+}
+
