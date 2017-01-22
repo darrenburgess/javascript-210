@@ -271,3 +271,14 @@
   * undefined valus are also added if you increase the length `a.length = 7;`
   * arrays are objects `typeof a // 'object'`
   * or use `Array.isArray(a)  // true`
+  * typical operators `+, -, *, /` do not work well with arrays
+      * arithmetic operators coerce arrays to strings
+      * this is non-mutating however
+  * equality operators, `==` and `===` will not return true for
+    two equal valued arrays
+      * this is because they are different objects
+      * however `array === array   // true`
+      * and `array2 = array; array === array2 // true`
+      * javascript considers these the same object
+  * don't ever use comparison operators `< > <= >=` with arrays
+    results will be unexpected

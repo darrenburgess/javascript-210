@@ -714,6 +714,7 @@ function splice(array, start, deleteCount) {
 
 function join(array, string) {
   var result = '';
+  string = string || ',';
 
   for (i = 0; i < array.length; i++) {
     result += array[i].toString();
