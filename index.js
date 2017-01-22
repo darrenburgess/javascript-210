@@ -680,3 +680,17 @@ function lastIndexOf(array, value) {
 
   return result;
 }
+
+function slice(array, start, end) {
+  start = start || 0;
+  end = end || array.length;
+  var result = [];
+  var counter = 0;
+
+  for (var i = start; i < end; i++) {
+    result[counter] = array[i];
+    counter++;
+  }
+
+  return result;
+}
