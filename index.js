@@ -753,7 +753,7 @@ function arraysEqual(arr1, arr2) {
     limit = arr1.length;
   }
 
-  for (i = 0; i < limit; i++) {
+  for (var i = 0; i < limit; i++) {
     if (arr1[i] === arr2[i]) {
       result = true;
     } else {
@@ -770,7 +770,7 @@ function arraysEqual2(arr1, arr2) {
     return false;
   }
 
-  for (i = 0; i < arr1.length; i++) {
+  for (var i = 0; i < arr1.length; i++) {
     if (arr1[i] !== arr2[i]) {
       return false;
     }
@@ -794,7 +794,7 @@ function nthElementOf(arr, index) {
 function firstNOf(arr, count) {
   result = [];
 
-  for (i = 0; i < count; i++) {
+  for (var i = 0; i < count; i++) {
     result.push(arr[i]);
   }
 
@@ -820,3 +820,88 @@ function endsOf(beginningArr, endArr) {
   // or:
   return [beginningArr[0], endArr[endArr.length -1]];
 }
+
+function oddElementsOf(arr) {
+  result = [];
+
+  for (var i = 1; i < arr.length; i += 2) {
+    result.push(arr[i]);
+  }
+
+  return result;
+}
+
+function combinedArray(even, odd) {
+  result = [];
+
+  for (var i = 0; i < even.length; i++) {
+    result.push(even[i]);
+    result.push(odd[i]);
+  }
+
+  return result;
+}
+
+function originalAndReversed(array) {
+  result = [];
+
+  for (var i = 0; i < array.length; i++) {
+    result.push(array[i]);
+  }
+
+  for (var i = array.length - 1; i >= 0; i--) {
+    result.push(array[i]);
+  }
+
+  return result;
+}
+
+function mirrorArray(array) {
+  return array.concat(array.slice().reverse());
+}
+
+function joinArray(array, joiner) {
+  result = '';
+  joiner = joiner || '';
+
+  for (var i = 0; i < array.length; i++) {
+    result += array[i].toString();
+    if (i !== array.length -1) {
+      result += joiner;
+    }
+  }
+
+  return result;
+}
+
+function sortDescending(array) {
+  return array.slice().sort(function(a, b) {
+    return b - a;
+  });
+}
+
+function matrixSums(array) {
+  var result = [];
+
+  for (var i = 0; i < array.length; i++) {
+    result.push(array[i].reduce(function(a, b) {
+      return a + b;
+    }));
+  }
+
+  return result;
+}
+
+function uniqueElements(array) {
+  var result = [];
+  var len = array.length;
+
+  for (var i = 0; i < len; i++) {
+    if (array.lastIndexOf(array[i]) === i) {
+      result.push(array[i]);
+    }
+  }
+
+  return result;
+}
+
