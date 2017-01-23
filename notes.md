@@ -288,3 +288,9 @@
   * arrays elements can be added to a negative index
       * but the length of the array does not change
       * `array[-1] = 42; array[-1]; // 42; array['-1'] // 42`
+  * `array.slice()`
+      * `slice` makes a shallow copy of the the array and returns it
+      * primitive values are copied
+      * if a value is an object, the reference to the object is copied
+      * that means that if the value changes in the original array
+        it will also change in the new array.
