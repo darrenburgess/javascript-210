@@ -905,3 +905,24 @@ function uniqueElements(array) {
   return result;
 }
 
+function findMissingNumbers(array) {
+  array.sort();
+  var result = [];
+  var diff;
+  var value;
+
+  for (var i = 0; i < array.length; i++) {
+    value = array[i];
+    diff = Math.abs(value - array[i + 1]); 
+
+    if (diff > 1) {
+      for (var j = 1; j < diff; j++) {
+        result.push(value + j);
+      }
+    }
+  }
+
+  return result;
+}
+
+
