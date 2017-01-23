@@ -780,5 +780,43 @@ function arraysEqual2(arr1, arr2) {
 }
 
 function firstElementOf(arr) {
+  return arr[0];
+}
 
+function lastElementOf(arr) {
+  return arr[arr.length - 1];
+}
+
+function nthElementOf(arr, index) {
+  return arr[index];
+}
+
+function firstNOf(arr, count) {
+  result = [];
+
+  for (i = 0; i < count; i++) {
+    result.push(arr[i]);
+  }
+
+  return result;
+}
+
+function firstNOf2(arr, count) {
+  return arr.slice(0, count);
+}
+
+function lastNOf(arr, count) {
+  return arr.slice(arr.length - count, arr.length);
+}
+
+function endsOf(beginningArr, endArr) {
+  var result = [];
+
+  result.push(firstElementOf(beginningArr));
+  result.push(lastElementOf(endArr));
+
+  return result;
+
+  // or:
+  return [beginningArr[0], endArr[endArr.length -1]];
 }
