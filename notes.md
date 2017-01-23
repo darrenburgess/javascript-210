@@ -285,3 +285,6 @@
   * arrays are objects and have a length property.  
       * this is why we can call `arr.length` without any parenthesis
       * length is not a method or function. it is a property.
+  * arrays elements can be added to a negative index
+      * but the length of the array does not change
+      * `array[-1] = 42; array[-1]; // 42; array['-1'] // 42`
