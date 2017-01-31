@@ -160,3 +160,28 @@ function formatTime() {
   return formatNumber(hours) + ":" + formatNumber(minutes);
 }
 
+// arguments object: welcome stranger exercise
+
+function greetings(person, job) {
+  var name = person.join(' ');
+  var title = job.title;
+  var occupation = job.occupation;
+
+  console.log('Hello, ' + name + '! Nice to have a ' + title + ' ' + occupation + ' around');
+}
+
+function repeatedCharacters(word) {
+  var wordArray = word.toLowerCase().split('').sort();
+  var result = {};
+  
+  for (var i = 0; i < wordArray.length; i++) {
+    chr = wordArray[i];
+    result[chr] ? result[chr] += 1 : result[chr] = 1;
+  }
+
+  for (key in result) {
+    if (result[key] === 1) delete result[key];
+  }
+
+  return result;
+}
