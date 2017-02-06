@@ -258,7 +258,7 @@ function concat2(arr) {
   args = Array.prototype.slice.call(arguments).splice(1);
 
   // parse the arguments
-  for (i = 0; i < args.length; i += 1) {
+  for (var i = 0; i < args.length; i += 1) {
     arg = args[i];
 
     // push each value of arg when arg is an array, otherwise just push
@@ -272,4 +272,71 @@ function concat2(arr) {
   }
 
   return result; 
+}
+
+function pop(arr) {
+  // removes and returns the last value in an array
+  // mutates the original array
+  // returns undefined for an empty array
+  
+  var result;
+
+  if (arr.length) {
+    result = arr[arr.length - 1];
+    arr.length = arr.length - 1;
+  }
+
+  return result;
+}
+
+function push(arr) {
+  // adds a value(s) to the end of an array
+  // returns the new array length
+  
+  // parse argumnts, remove first (the original array)
+  args = Array.prototype.slice.call(arguments).splice(1);
+
+  args.forEach(function(arg) {
+    arr[arr.length] = arg;
+  });
+
+  return arr.length;
+}
+
+function reverse(valueToReverse) {
+  var result;
+
+  if (Array.isArray(valueToReverse)) {
+    result = reverseArray(valueToReverse); 
+  } else if (typeof valueToReverse === 'string') {
+    result = reverseArray(valueToReverse.split('')).join(''); 
+  }
+
+  function reverseArray(arr) {
+    var newArray = [];
+    arr.forEach(function(e){
+      newArray.unshift(e);
+    });
+
+    return newArray;
+  }
+
+  return result;
+}
+
+function reverseArray(inputForReversal) {
+  var reversed = [];
+  for (var i = 0, length = inputForReversal.length; i < length; i++) {
+    reversed[length - i] = inputForReversal[i];
+  }
+
+  return reversed;
+}
+
+function shift(arr) {
+  // removes and returns the first element of an array
+}
+
+function unshift(arr) {
+  // add an element to the first position in an array
 }
