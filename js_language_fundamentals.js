@@ -324,19 +324,38 @@ function reverse(valueToReverse) {
   return result;
 }
 
-function reverseArray(inputForReversal) {
-  var reversed = [];
-  for (var i = 0, length = inputForReversal.length; i < length; i++) {
-    reversed[length - i] = inputForReversal[i];
-  }
-
-  return reversed;
-}
-
 function shift(arr) {
   // removes and returns the first element of an array
+
+  var result = arr[0];
+  arr.splice(0, 1);
+  return result;
 }
 
 function unshift(arr) {
-  // add an element to the first position in an array
+  // add an element(s) to the first position in an array
+  // returns the new length
+  
+  // parse arguments
+  var args = Array.prototype.slice.call(arguments).splice(1);
+  var arg;
+
+  // loop the arguments in reverse order
+  // adding each to the beginning of the array
+  for (var o = args.length - 1; o >= 0; o -= 1){
+    arg = args[o];
+
+    // add an undefined element to the array by increasing its length
+    arr.length = arr.length + 1;
+
+    // loop the array in reverse, shifting each value to the right
+    for (var i = arr.length - 1; i >= 0; i -= 1) {
+      arr[i] = arr[i - 1];
+    }
+
+    // set the value in position 0 to the current argument
+    arr[0] = arg;
+  }
+
+  return arr.length;
 }
