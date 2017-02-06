@@ -72,4 +72,57 @@
       * pure functions use only their arguments to determine the return value
       * pure functions always resolve to the same value, give same arguments
       * consider if a functions needs to be pure or have side effects
+      * pure functions return value is often set to a variable with assignment
+      * when function returns a value it is a clue that it should be pure
+      * side effect functions should receive as arguments the vars to mutate
+      * function side effects are significant source of bugs
+      * to avoid side effects, look at ways to build a new object and return that
+        object from the function
+
+## Built in objects
+  * Math object
+  * Date object
+  * Function Arguments object
+      * array-like local variable as part of function internal scope
+      * contains all arguments, despite those defined and despite those provided
+      * `arguments` has a `length` property
+      * `arguments` can be accessed with computed element property `[]`
+      * `arguments` is not an array but an be converted to one:
+          * `args = Array.prototype.slice.call(arguments);`
+
+## Javascript Style Guide
+  * use airBnB https://github.com/airbnb/javascript
+
+## Errors
+  * ReferenceError
+      * occurs when the variable or function does not exist
+  * TypeError
+      * when you attempt to access a value with properties
+  * SyntaxError
+      * occurs when program is loaded
+      * and generally before it is run
+      * but some syntax errors will not be caught until run time
+  * Preventing Errors
+      * watch out for assumptions. if a program assumes a certain input
+        and does not receive it, that can generate an error
+      * use a `guard clause` to prevent execution on data
+        guarantees that data meets requirements before being used
+      * use guard clause when function can't trust that values
+        will always be valid
+      * consider all of the edge cases and plan code accordingly
+      * consider combinations of values
+      * focus on the happy path and then revisit and refactor in handling
+        of the edge cases
+  * Catching errors
+      * some methods such as `JSON.parse()` are impractical to manually cath errors
+      * but they can throw an error if provided invalid inputs
+      * in this case use a `try/catch/finally` block
+        ```
+        try {
+          // do something that might fail
+        } catch (error) {
+          // runs when error occurs in try block
+        } finally {
+          // always runs regardless of error or not. optional.
+        }
 
