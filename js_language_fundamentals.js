@@ -359,3 +359,105 @@ function unshift(arr) {
 
   return arr.length;
 }
+
+function slice(array, begin, end) {
+
+}
+
+function splice(array, start, deleteCount) {
+  // splice method changes the contents of an array by removing and/or adding elements
+  // returns an array containing the deleted elements
+  // start: index at which to start changing the array
+  //   if start is greater then length, start === length
+  //   if start is negative, start that many elements from end of array
+  // deleteCount: an optional parameter. number of elements to remove
+  //   if 0, remove no elements, so make sure to specify elements to add
+  //   if delete count is greater than remaining elements, then delete all to end
+  //   if deleteCount is omitted deleteCount === arr.length - start
+  // item1, item2.... optional elements to add to the array, beginning at start index
+  
+  // considered using this function to splice the arguments, but it creates recursive issues
+  var newItems = Array.prototype.slice.call(arguments).splice(3);
+  var arrayLength = array.length;
+  var deletedItems = [];
+  var itemsLength = newItems.length;
+  var i;
+  
+  if (start > arrayLength) start = arrayLength; 
+  if (start < 0) start = array.length - Math.abs(start);
+  if (deleteCount === undefined) deleteCount = arrayLength - start;
+  if (deleteCount > arrayLength - start) deleteCount = arrayLength - start;
+
+  if (deleteCount) {
+    // push the deleted items into the deletedItems array
+    for (i = start; i <= (deleteCount + start - 1); i += 1){
+      deletedItems.push(array[i]);
+    }
+
+    // displace elements up the array (toward beginning)
+    for (i = 0; i < deleteCount; i += 1) {
+      array[start + i] = array[start + i + deleteCount];      
+    }
+
+    // and adjust array length to remove elements at end
+    array.length = arrayLength - deleteCount;
+  }
+
+  if (itemsLength) {
+    for (i = 0; i < itemsLength; i += 1) {
+      // displace elements down the array to make room
+      array[array.length] = array[start + i];
+
+      // insert new items from the arguments array
+      array[start + i] = newItems[i];
+    } 
+  }
+
+  return deletedItems;  
+}
+
+function slice(array, begin, end) {
+  // requirements from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+  // slice returns a shallow copy of a portion of an array into a new array object
+  // selected from begin to end. slice does not mutate the original array.
+  // begin: the zero-based index to begin 
+  //   if begin is negative, remove that many elements offset from the end
+  //   if begin is undefined, begin === 0
+  // end: extract up to but not including the value at end
+  //   if end is negative, end represents an offset from the end of the sequence
+  //   if end is undefined, slice all the way to and including the end
+  //   if end is greater then length end === length
+  
+  // set up variables
+  var newArray = [];
+  var arrayLength = array.length;
+  var numberToExtract;
+  
+  if (begin === undefined) begin = 0;
+  if (begin < 0)           begin = arrayLength - Math.abs(begin);
+  if (end === undefined)   end = arrayLength;
+  if (end < 0)             end = arrayLength - Math.abs(end);
+  if (end > arrayLength)   end = arrayLength;
+
+  numberToExtract = end - begin;
+
+  for (i = 0; i < numberToExtract; i += 1) {
+    newArray.push(array[begin + i]);
+  }
+
+  return newArray;
+}
+
+function areArraysEqual(array1, array2) {
+  var result = true;
+  if (array1.length !== array2.length) result = false;
+
+  var arr1 = array1.concat().sort();
+  var arr2 = array2.concat().sort();
+
+  arr1.forEach(function(ele, idx){
+    if (ele !== arr2[idx]) result = false;
+  });
+  
+  return result;
+}
