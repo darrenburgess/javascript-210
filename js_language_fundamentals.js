@@ -456,8 +456,62 @@ function areArraysEqual(array1, array2) {
   var arr2 = array2.concat().sort();
 
   arr1.forEach(function(ele, idx){
-    if (ele !== arr2[idx]) result = false;
+    if (ele !== arr2[idx]) {
+      result = false;
+      return;
+    }
   });
   
   return result;
+}
+
+function helloWorld() {
+  var myObj = {}
+  
+  myObj[myFunc('greet')] = 'Hello, ';
+  myObj[myFunc('planet')] = 'World!';
+
+  function myFunc(prop) {
+    return prop;
+  };
+
+  return myObj.greet + myObj.planet;
+}
+
+function penultimate(string) {
+  arr = string.split(' ');
+  return arr[arr.length - 2];
+}
+
+function timeOfDay(deltaMinutes) {
+  time = new Date(2017, 0, 1, 0, 0 + deltaMinutes, 0);
+  hours = time.getHours();
+  minutes = time.getMinutes();
+
+  function convertTime(number) {
+    var result;
+    num = number.toString();
+    return num.length === 1 ? '0' + num : num;
+  }
+
+  return convertTime(hours) + ':' + convertTime(minutes);
+}
+
+function afterMidnight(timeStr) {
+  var time = new Date('Jan 1 2017 ' + timeStr);
+  var midnight = new Date('Jan 1 2017 00:00');
+  return Math.abs((time - midnight) / 60000);
+}
+
+function beforeMidnight(timeStr) {
+  var time = new Date('Jan 1 2017 ' + timeStr);
+  var midnight;
+
+  if (timeStr === '00:00') {
+    midnight = new Date('Jan 1 2017 00:00');
+  } else {
+    midnight = new Date('Jan 1 2017 24:00');
+  }
+
+  return Math.abs((midnight - time) / 60000);
 }
