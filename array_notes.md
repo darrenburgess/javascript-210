@@ -13,7 +13,8 @@
   * max value can be determined with Number.MAX_VALUE
   * max integer: Number_MAX_SAFE_INTEGER
   * `NaN` (not a number) is returned when a calc returns a error
-      * like divide by 0
+      * like `19 / undefined // NaN`
+      * `2 * "asdf"   // NaN`
 
 ### Boolean
   * boolean is a data type that represents the truth value of logic
@@ -65,21 +66,24 @@
       * and like wise for the -, / and % operatros 
 
 ### Comparison
-  * equal (==)
-  * not equal (!=)
-  * strict equal (===) (value and type equal)
-  * strict not equal (!==)
-  * greater than (>)
-  * less than (>)
+  * equal `==`
+  * not equal `!=`
+  * strict equal `===` (value and type equal)
+  * strict not equal `!==`
+  * greater than `>`
+  * less than `<`
   * strings can also be compared to each other
 
 ### Logical
-  * and (&&)
-  * or (||)
-  * not (!)
+  * and `&&` 
+  * or `||`
+  * not `!`
   * logical expressions terminate when additional evaluation is not needed.
       * `a || b` stops evaluating if `a` is true
       * `a && b` stops evaluating if `a` is false
+  * logical expressions return the left side in these cases, otherwise the right
+      * `&&` if left can evaluate to `false` return left, otherwise return right
+      * `||` if left can evaluate to `true` return left, otherwise return right
 
 ## Expressions and Statement
   * an expression is any valid code that resolves to a value
@@ -113,7 +117,7 @@
   * `true.toString();  // "true"`
   * `var a = "true"; a == 'true'  // true `
   * `Boolean(null)  // false`
-  * `Boolean();` will coerce any value into its corresponding boolean based on the truthy/falsey rules
+  * `Boolean();` will coerce any value into its corresponding boolean based on the truthy/falsy rules
   * `!!` will also coerce the boolean equivalent as in `!!(null);  // false`
   * `truthy`:
       * true
@@ -121,7 +125,7 @@
       * any string
       * any array [] including and empty array
       * any object {} including an empty object
-  * `falsey`:
+  * `falsy`:
       * null
       * NaN
       * 0
@@ -196,7 +200,7 @@
       }
       ```
   * use the `return` keyword to return a value from the function
-  * a unfunction will return `undefined` if their is no return or the no value in the return
+  * a function will return `undefined` if their is no return or there is no value in the return
   * a `parameter` is the name applied to a value passed to a function
   * a `parameter` becomes availble in the function as a local variable
   * an `argument` is the actual value passed
@@ -207,8 +211,8 @@
 ### Function Invocation and Arguments
   * functions are invoked by appending `()` to its name as in `functionName();`
   * function names are local variables that have a function as its value
-  * calling a function with two few arguments does not raise a error
-  * if you don't provide an arugument, its value is `undefined`
+  * calling a function with to few arguments does not raise a error
+  * if you don't provide an arguument, its value is `undefined`
   * extra arguments are ignored
 
 ### Function Scopes and Lexical Scoping
@@ -236,7 +240,7 @@
         be hoisted to the top of the scope  
 
 ### Hoisting
-  * In JS, all variables are processed before the code executes a code in a scope.
+  * In JS, all variables are processed before the code executes the code in a scope.
   * note that this is only the variable declaration, not its assignment
   * JS moves the variable declarations to the top of the scope, including function declarations
   * function declarations are also moved to the top
@@ -244,7 +248,7 @@
 
 ### Function Declarations and Expressions
   * a function *declaration* uses the `function` keyword to define a variable to hold the function code
-  * function declarations obey the scoping rules
+  * function declarations obey scoping rules
   * in this example we create an anonymous (unnamed) function add asign it to the variable `speak`
   * `speak` can then be used to invoke the function
 
@@ -266,7 +270,7 @@
   * `a[0]  // 1`
   * `a[1]  // 2`
   * arrays values can be modified by accessing the index
-  * items can be added by using and index `a[5] = 'hello';`
+  * items can be added by using an index `a[5] = 'hello';`
   * js will insert `undefined` values if you skip indexes
   * undefined valus are also added if you increase the length `a.length = 7;`
   * arrays are objects `typeof a // 'object'`

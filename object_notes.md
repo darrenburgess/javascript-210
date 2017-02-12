@@ -3,7 +3,7 @@
 
   * JS comes with a set of built in objects
       * String, Array, Object, Math, Date
-      * JS converts primitives to objects when you us an object method on them
+      * JS converts primitives to objects when you use an object method on them
   * You can create custom objects:
       * using object literal notation
           ```
@@ -23,7 +23,7 @@
       * methods can be called with the `.` operator, and are invoked with `()`
       * methods can receive parameters passed within the `()`
   * always use a trailing comma after the last property in object literal notation
-      * this allows propertie to be moved without concern for adding or removing commas
+      * this allows properties to be moved without concern for adding or removing commas
       * `git diff` will only return one line of code difference instead of 2
   * Property Names and Values
       * property name is any valid string
@@ -35,7 +35,7 @@
           * computed element operator can be an expression `pets['do'+'g'];`
       * use dot notation to access deeper properties.  `pets.dog.age;`
   * remove a property with `delete`  `delete pets.cat;`
-  * inerating objects
+  * iterating objects
       * use `for (someVar in objectName) { //do stuff }`
   * `object.keys()` will return an array of the name of all the properties
   * Objects vs Arrays
@@ -76,8 +76,7 @@
       * when function returns a value it is a clue that it should be pure
       * side effect functions should receive as arguments the vars to mutate
       * function side effects are significant source of bugs
-      * to avoid side effects, look at ways to build a new object and return that
-        object from the function
+      * to avoid side effects, look at ways to build a new object and return that object from the function
 
 ## Built in objects
   * Math object
@@ -86,7 +85,7 @@
       * array-like local variable as part of function internal scope
       * contains all arguments, despite those defined and despite those provided
       * `arguments` has a `length` property
-      * `arguments` can be accessed with computed element property `[]`
+      * `arguments` can be accessed with computed element operator `[]`
       * `arguments` is not an array but an be converted to one:
           * `args = Array.prototype.slice.call(arguments);`
 
@@ -125,4 +124,3 @@
         } finally {
           // always runs regardless of error or not. optional.
         }
-
