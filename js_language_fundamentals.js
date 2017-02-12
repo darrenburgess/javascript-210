@@ -515,3 +515,143 @@ function beforeMidnight(timeStr) {
 
   return Math.abs((midnight - time) / 60000);
 }
+
+function timesTable() {
+  var row;
+  var i;
+  var j;
+
+  function padLeft(num) {
+    len = String(num).length;
+
+    if (len <= 1) {
+      return '  ' + num;
+    } else if (len === 2) {
+      return ' ' + num;
+    } else {
+      return num;
+    }
+  }
+
+  for (i = 1; i <= 10; i++) {
+    row = '';
+    for (j = 1; j <= 10; j++) {
+      row += padLeft(i * j) + ' ';
+    }
+    console.log(row + '\n');
+  }
+}
+
+function getSelectedColumns(numbers, cols) {
+  //var result [];
+
+  for (var i = 0, length = numbers.length; i < length; i++) {
+    for (var j = 0, length = cols.length; j < length; j++) {
+      if (!result[j]) {
+        result[j] = [];
+      }
+
+      result[j][i] = numbers[i][cols[j]];
+      }
+    }
+
+  return result;
+}
+
+function summation(start, count) {
+  return Array.apply(0, Array(count))
+    .map(function (element, index) { 
+    return index + start;  
+  }).reduce(function(a, b){ return a + b; });
+}
+
+function getSelectedColumns(numbers, cols) {
+  var result = [];
+  for (let i = 0, length = numbers.length; i < length; i++) {
+    console.log('Outer length: ' + length);
+    for (let j = 0, length = cols.length; j < length; j++) {
+      console.log('Inner length: ' + length);
+      if (!result[j]) {
+        result[j] = [];
+      }
+
+      result[j][i] = numbers[i][cols[j]];
+    }
+  }
+
+  return result;
+}
+
+function invoiceTotal() {
+  var total = 0;
+
+  var args = Array.prototype.slice.call(arguments);
+
+  total = args.reduce(function(a, b) {
+    return a + b;
+  })
+
+  return total;
+}
+
+function invoiceTotal2() {
+  var total = 0;
+
+  total = arguments.reduce(function(a, b) {
+    return a + b;
+  })
+
+  return total;
+}
+
+function processOrder(price, quantity, discount, serviceCharge, tax) {
+  if (quantity <= 0) {
+    quantity = 1;
+  } else {
+    quantity = quantity || 1;
+  }
+
+  if (discount < 0) {
+    // not really sure a negative value should be 0. 
+    // perhaps the program should return an error?
+    discount = 0;    
+  } else {
+    discount = discount || 0;
+  }
+
+  if (serviceCharge <= 0 ) {
+    serviceCharge = 0;
+  } else {
+    serviceCharge = serviceCharge || 0.1;
+  }
+
+  if (tax <= 0) {
+    tax = 0;
+  } else {
+    tax = tax || 0.15;
+  }
+
+  return (price * quantity) * (1 - discount) * (1 + serviceCharge) * (1 + tax);
+}
+
+function objectsEqual(obj1, obj2) {
+  var length1 = Object.keys(obj1).length;
+  var length2 = Object.keys(obj2).length;
+
+  if (length1 !== length2) {
+    return false;
+  }
+
+  for (prop in obj1) {
+    if (obj1.prop !== obj2.prop) return false;
+  }
+
+  return true;
+}
+
+function makeDoubler(caller) {
+  return function(number) {
+    console.log('This function was called by ' + caller + '.');
+    return number + number;
+  };
+}
