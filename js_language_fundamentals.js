@@ -655,3 +655,196 @@ function makeDoubler(caller) {
     return number + number;
   };
 }
+
+function ticketsOrig(peopleInLine){
+  var bank = {25: 0, 50: 0, 100: 0};
+  var price = 25;
+  var bill;
+  var change;
+  var result = 'YES';
+  
+  for (var i = 0; i < peopleInLine.length; i += 1) {
+    bill = peopleInLine[i];
+    change = bill - price;
+    
+    if (change === 0) {
+      // do nothing
+    } else if (change === 25) {
+      if (bank[25] === 0) {
+        result = 'NO'
+        break;
+      } else {
+        bank[25] -= 1;
+      }
+    } else if (change === 75) {
+      if (bank[25] > 0 && bank[50] > 0) {
+        bank[25] -= 1;
+        bank[50] -= 1;
+      } else if (bank[25] >= 3) {
+        bank[25] -= 3;
+      } else {
+        result = 'NO';
+        break;
+      }
+    }
+    
+    bank[bill] += 1;
+  };
+  
+  return result;  
+}
+
+function tickets(arr) {
+    let bank = {
+        25: 0,
+        50: 0,
+        100: 0,
+    };
+
+    for (let i = 0; i < arr.length; i++) {
+        let bill = arr[i]
+        if (bill == 25) {
+          bank[25]++;
+        } else {
+          bank[bill]++;
+          hasChange = checkBank(bank, bill);
+          if (!hasChange) return 'NO';
+        }
+    }
+
+    return 'YES';
+}
+
+function checkBank (bank, val) {
+    if (val === 50)  {
+        return bank[25]--;
+    } else if (bank[25] && bank[50]) {
+        bank[25]--;
+        bank[50]--;
+        return true;
+    } else if (bank[25] > 2) {
+        bank[25] -= 3;
+        return true;
+    }
+    return 0;
+}
+
+function digPow(n, p){
+  var x = 0;
+  var array = [];
+  var k;
+  var result = 0;
+
+  array = String(n).split('').map(function(str){
+    return Number(str); 
+  });
+  
+  array.forEach(function(ele, idx) {
+    result += Math.pow(ele, p + idx); 
+  })
+  
+  k = result / n;
+  
+  if (k === Math.floor(k)) {
+    return k;
+  } else {
+    return -1;
+  }
+}
+
+function duplicateEncode(word){
+    return word.toLowerCase()
+               .split('')
+               .map(function(chr, idx, arr){
+                 if (idx === arr.indexOf(chr) && idx === arr.lastIndexOf(chr)) {
+                   return '(';
+                 } else {
+                   return ')';
+                 }
+               })
+               .join('');
+}
+
+function addingShifted (arrayOfArrays, shift) {
+  var result = [];
+  var lengthArray = arrayOfArrays[0].length;
+  var numberArrays = arrayOfArrays.length;
+  var totalLength = lengthArray + ((numberArrays - 1) * shift);
+  var shifted = shift;
+  var sum;
+  var value;
+  
+  for (var i = 1; i < numberArrays; i += 1) {
+    array = arrayOfArrays[i];
+    for (var j = 0; j < array.length + shift; j += 1) {
+      if (j < shifted) array.unshift(0);
+    };
+    shifted += shift;
+  };
+  
+  for (i = 0; i < totalLength; i += 1) {
+    sum = 0;
+    for (j = 0; j < numberArrays; j += 1) {
+      array = arrayOfArrays[j];
+      value = array[i] || 0;
+      sum = sum + value;
+    };
+    result.push(sum);
+  };
+  
+  return result;
+}
+
+function logOdd() {
+  var num;
+  var stop;
+  var range = getRange();
+
+  var start = range.start;
+  var end = range.end;
+
+  if (start === 'cancelled' || end === 'cancelled') {
+    console.log('user cancelled input');
+    return;
+  }
+
+  if (start >= end) {
+    console.log('input error: start greater than end');
+    return;
+  }
+
+  num = Number(start);
+  stop = Number(end);
+
+  do {
+    if (num % 2 !== 0) console.log(num);
+    num += 1;
+  } while (num < stop);
+}
+
+function getRange() {
+  var start;
+  var end;
+
+  function isNotInteger(n) {
+    !Number.isInteger(Number(n));
+  }
+
+  function getInput(type) {
+    do {
+      num = prompt('Enter ' + type + ' (integer)');
+      if (num === null) break;
+    } while (isNotInteger(num));
+
+    return num || 'cancelled';
+  }
+
+  start = getInput('Start');
+
+  if (start !== 'cancelled') end = getInput('End');
+
+  return {
+    start: start,
+    end: end,
+  }
+}
