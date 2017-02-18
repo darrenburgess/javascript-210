@@ -840,3 +840,90 @@ function getRange() {
     end: end,
   }
 }
+
+function mazeRunner(maze, directions) {
+  // in: two d maze of numbers, array of directions
+  // out: string, success = Finish, wall = Dead, out of moves = Lost
+  // alg:
+  //   find the start coordinate
+  //   loop the array of directions 
+  //     N change index to row-1, col
+  //     W change index to row, col-1
+  //     E change index to row, col+1
+  //     S change index to row+1, col
+  //     evaluate the new location 0: safe, 1: Dead, 2: start, 3: Finish
+  //     if not Finish and or at end of array then return Lost
+  console.log(directions);
+  
+  function findCoordinates(type) {
+    var result;
+    
+    for (var row = 0; row < maze.length; row += 1) {
+      col = maze[row].indexOf(type);
+      if (col >= 0) {
+        result = [row, col];
+        break;
+      };
+    };
+    
+    return result;
+  }
+  
+  function move(direction, coordinate) {
+    // return a new coordinate
+    var result;
+    
+    switch (direction) {
+      case "N":
+        result = [coordinate[0] - 1, coordinate[1]];
+        break;
+      case "W":
+        result = [coordinate[0], coordinate[1] - 1];
+        break;
+      case "E":
+        result = [coordinate[0], coordinate[1] + 1];
+        break;
+      case "S":
+        result = [coordinate[0] + 1, coordinate[1]];
+        break;
+    }
+    
+    return result;
+  }
+  
+  function checkPosition(coordinate) {
+    // evaluate the new location 0: safe, 1: Dead, 2: safe, 3: Finish
+    if (maze[coordinate[0]] === undefined) return 'Dead';
+    
+    switch (maze[coordinate[0]][coordinate[1]]) {
+      case 1:
+        return "Dead";
+      case 3:
+        return "Finish";
+      case undefined:
+        return "Dead";
+      default:
+        return "Safe";
+    }
+  }
+  
+  function navigate(directions) {
+    var currentIndex = findCoordinates(2);
+    var endIndex = findCoordinates(3);
+    var result = 'Lost';
+    var direction;
+    
+    for (var i = 0; i < directions.length; i += 1) {
+      direction = directions[i];
+      currentIndex = move(direction, currentIndex);
+      result = checkPosition(currentIndex);
+      if (result === 'Dead' || result === 'Finish') {
+        break;
+      }
+    }
+    
+    return result;
+  }
+
+  return navigate(directions);
+}
