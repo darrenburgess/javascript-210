@@ -927,3 +927,42 @@ function mazeRunner(maze, directions) {
 
   return navigate(directions);
 }
+
+function mazeRunner2(maze, directions) {
+  var size=maze.length;
+  var i=-1;
+  var j=-1;
+  var di={N:-1,S:1,E:0,W:0};
+  var dj={W:-1,E:1,N:0,S:0};
+  
+  while(!maze[++i].includes(2));
+  while(maze[i][++j]!=2);
+  
+  for(var s of directions){
+    i+=di[s],j+=dj[s]
+    if(i<0||j<0||i>=size||j>=size||maze[i][j]==1) return "Dead"
+    if(maze[i][j]==3) return "Finish"
+  }
+  
+  return "Lost"
+}
+
+function test() {
+  var a = "hello";
+
+  function run(a) {
+    console.log(a.length);
+  }
+
+  run(a);
+
+}
+
+function isEmpty(value) {
+  var type = typeof value;
+  if (type === 'string') {
+    return value.length === 0;
+  } else if (type === 'object') {
+    return Object.keys(value).length === 0;
+  }
+}
