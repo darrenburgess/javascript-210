@@ -947,22 +947,224 @@ function mazeRunner2(maze, directions) {
   return "Lost"
 }
 
-function test() {
-  var a = "hello";
-
-  function run(a) {
-    console.log(a.length);
-  }
-
-  run(a);
-
+function filterArray(array, callback) {
+  return array.filter(callback);
 }
 
-function isEmpty(value) {
-  var type = typeof value;
-  if (type === 'string') {
-    return value.length === 0;
-  } else if (type === 'object') {
-    return Object.keys(value).length === 0;
+function isOdd(num) {
+  return num % 2 !== 0;
+}
+
+function isEven(num) {
+  return num % 2 === 0;
+}
+
+function myForEach(array, func) {
+  var length = array.length;
+
+  for (var i = 0; i < length; i += 1) {
+    func(array[i]);
   }
+}
+
+var min = Infinity;
+var max = -Infinity;
+
+var getMinMax = function(value) {
+
+  if (value >= max) {
+    max = value;
+  }
+
+  if (value <= min) {
+    min = value;
+  }
+
+  return [min, max];
+};
+
+function myFilter(array, func) {
+  var newArray = [];
+
+  for (var i = 0; i < array.length; i += 1) {
+    if (func(array[i])) newArray.push(array[i]);
+  }
+
+  return newArray;
+}
+
+var isPythgoreanTriple = function(triple) {
+  return Math.pow(triple.a, 2) + Math.pow(triple.b, 2) === Math.pow(triple.c, 2);
+};
+
+function multiplesOfThreeOrFive(values) {
+  return myFilter(values, isMultipleOfThreeOrFive);
+}
+
+var isMultipleOfThreeOrFive = function(value) {
+  return value % 5 === 0 || value % 3 ===0;
+};
+
+function myMap(array, func) {
+  var newArray = [];
+
+  array.forEach(function(ele) {
+    newArray.push(func(ele));
+  });
+
+  return newArray;
+}
+
+var addTwo = function(value) {
+  return value + 2;
+}
+
+function getBooksTitle(books) {
+  return myMap(books, getTitle);
+}
+
+var books = [
+  {
+    title: 'JavaScript and JQuery: Interactive Front-End Web Development',
+    author: 'Jon Ducket',
+    edition: '1st',
+  },
+  {
+    title: 'Eloquent JavaScript: A Modern Introduction to Programming',
+    author: 'Haverbeke',
+    edition: '2nd',
+  },
+  {
+    title: 'Learning Web Design: A Beginner\'s Guide to HTML, CSS, JavaScript, and Web Graphics',
+    author: 'Jennifer Niederst Robbins',
+    edition: '4th',
+  },
+];
+
+var getTitle = function(book) {
+  return book['title'];
+}
+
+getBooksTitle(books);
+
+function add(previousValue, element, array) {
+  var sum = previousValue + element;
+  console.log(previousValue, element, sum);
+  return sum;
+}
+
+function myReduce(array, func, initial) {
+  var index;
+  initial === undefined ? index = 1 : index = 0;
+  var result = initial || array[0];
+
+  for (var i = index; i < array.length; i += 1) {
+    result = func(result, array[i]);
+  }
+
+  return result;
+}
+
+var smallest = function(result, value) {
+  return result <= value ? result : value;
+}
+
+var sum = function(result, value) {
+  return result + value;
+}
+
+var longest = function(result, word) {
+  return result.length >= word.length ? result : word;
+}
+
+function longestWord(words) {
+  return myReduce(words, longest);
+}
+
+function myOwnEvery(array, func) {
+  var result = true;
+
+  for (var i = 0; i < array.length; i += 1) {
+    if (!func(array[i])) return false;
+  }
+
+  return result;
+}
+
+var isAString = function(value) {
+  return typeof value === 'string';
+}
+
+//console.log(myOwnEvery(['a', 'a234', 1], isAString));
+
+var isANumber = function(value) {
+  return typeof value === 'number';
+}
+
+function areAllNumbers(array) {
+  return myOwnEvery(array, isANumber);
+}
+
+//console.log(areAllNumbers([1, 5, 6, 7, 1]));
+
+function myOwnSome(array, func) {
+  var result = false;
+
+  for (var i = 0; i < array.length; i += 1) {
+    if (func(array[i])) return true;
+  }
+
+  return result;
+}
+
+function areSomeNumbers(array) {
+  return myOwnSome(array, isANumber);
+}
+
+//console.log(areSomeNumbers([null,"1234"]));
+
+var studentGrades = [
+  { name: 'StudentA', grade: 100 },
+  { name: 'StudentB', grade: 92, },
+  { name: 'StudentC', grade: 91.8, },
+  { name: 'StudentD', grade: 95.23, },
+  { name: 'StudentE', grade: 91.81, },
+];
+
+var compareGrades = function(student1, student2) {
+  var result = 0;
+  student1.grade < student2.grade ? result = 1 : result = -1;
+  return result;
+}
+
+//console.log(studentGrades.sort(compareGrades));
+
+var names = ['Heather', 'Gisella', 'Katsuki', 'Hua', 'Katy', 'Kathleen', 'Otakar'];
+
+function mostCommonFirstLetter(names) {
+  var obj = {};
+
+  letters = names.map(function(name) {
+    return name[0];
+  });
+
+  letterCounts = letters.reduce(function(counts, letter) {
+    if (counts[letter]) {
+      counts[letter] += 1;
+    } else {
+      counts[letter] = 1; 
+    }
+
+    return counts;
+  }, obj);
+
+  result = Object.keys(letterCounts).reduce(function(lastLetter, currentLetter) {
+    if (letterCounts[lastLetter] > letterCounts[currentLetter]) {
+      return lastLetter;
+    } else {
+      return currentLetter;
+    }
+  });
+  
+  return result;
 }
