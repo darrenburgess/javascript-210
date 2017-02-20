@@ -1,6 +1,4 @@
 # Objects in Javascript
-
-
   * JS comes with a set of built in objects
       * String, Array, Object, Math, Date
       * JS converts primitives to objects when you use an object method on them

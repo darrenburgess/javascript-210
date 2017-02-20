@@ -1144,27 +1144,15 @@ var names = ['Heather', 'Gisella', 'Katsuki', 'Hua', 'Katy', 'Kathleen', 'Otakar
 function mostCommonFirstLetter(names) {
   var obj = {};
 
-  letters = names.map(function(name) {
+  letterCounts = names.map(function(name) {
     return name[0];
-  });
-
-  letterCounts = letters.reduce(function(counts, letter) {
-    if (counts[letter]) {
-      counts[letter] += 1;
-    } else {
-      counts[letter] = 1; 
-    }
-
-    return counts;
+  }).reduce(function(obj, letter) {
+    obj[letter] = obj[letter] || 0;
+    obj[letter] += 1;
+    return obj;
   }, obj);
 
-  result = Object.keys(letterCounts).reduce(function(lastLetter, currentLetter) {
-    if (letterCounts[lastLetter] > letterCounts[currentLetter]) {
-      return lastLetter;
-    } else {
-      return currentLetter;
-    }
+  return Object.keys(letterCounts).reduce(function(a, b) {
+    return letterCounts[a] >= letterCounts[b] ? a : b;
   });
-  
-  return result;
 }

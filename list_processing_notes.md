@@ -22,3 +22,10 @@
     * imperative programming is very procedural - the human has to think like a computer
     * declarative programming allows the details to get pushed down so that programs communicate their
       intent more clearly.
+### List Processing Abstractions
+* `forEach` allows for iteration over an array and returns nothing
+* `filter` selects a subset of an array and returns a new array
+* `map` calculates a new value from each element in an array and returns a new array
+* `sort` reorders the elements in an array and returns a new array
+* `reduce` returns a single value computed from the result of iterating each value in a array
+* `every` or `some` returns a single value after detemining if array elements meet a condition
