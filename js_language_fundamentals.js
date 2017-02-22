@@ -1156,3 +1156,229 @@ function mostCommonFirstLetter(names) {
     return letterCounts[a] >= letterCounts[b] ? a : b;
   });
 }
+
+function sortNumbers(numbers) {
+  return numbers.sort(function(a, b) {
+    return;
+  });
+}
+
+function doubleObjectValues(obj) {
+  var newObject = {};
+  var keys = Object.keys(obj);
+  keys.forEach(function(ele) {
+    newObject[ele] = obj[ele] * 2;
+  });
+  return newObject;
+}
+
+// console.log(doubleObjectValues({a: 1, b: 2, c: 3}));
+
+function keepEvenValues(obj) {
+  var newObject = {};
+  var keys = Object.keys(obj);
+  keys.reduce(function(newObject, key) {
+    if (obj[key] % 2 === 0) {
+     newObject[key] = obj[key];
+    }
+    return newObject;
+  }, newObject);
+  return newObject;
+}
+
+//console.log(keepEvenValues({a: 1, b: 2, c: 3, d: 4}));
+
+function getTotalFromInvoice(invoice) {
+  return Object.keys(invoice).reduce(function(acc, key) {
+    return acc + invoice[key];
+  }, 0)
+}
+
+//console.log(getTotalFromInvoice({phone: 10000, internet: 8000, tax: 3000}));
+
+function totalArea(rectangles) {
+  return rectangles.map(function(rectangle) {return rectangle[0] * rectangle[1];})
+                   .reduce(function(totalArea, area) {
+                     return totalArea + area;
+                   }, 0);
+}
+
+//var rectangles = [[3, 4], [6, 6], [1, 8], [9, 9], [2, 2]];
+//console.log(totalArea(rectangles));
+
+var rectangles = [[3, 4], [6, 6], [1, 8], [9, 9], [2, 2]];
+
+var isSquare = function(rectangle) {
+  return rectangle[0] === rectangle[1];
+}
+
+var getAreas = function(rectangle) {
+  return rectangle[0] * rectangle[1];
+}
+
+var getSum = function(a, b) {
+  return a + b;
+}
+
+function totalSquareArea(rectangles) {
+  return rectangles.filter(isSquare).map(getAreas).reduce(getSum, 0);
+}
+
+//console.log(totalSquareArea(rectangles));
+
+var newReleases = [
+  {
+    'id': 70111470,
+    'title': 'Die Hard',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/DieHard.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [4.0],
+    'bookmark': [],
+  },
+  {
+    'id': 654356453,
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/BadBoys.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [5.0],
+    'bookmark': [{ id:432534, time:65876586 }],
+  },
+  {
+    'title': 'The Chamber',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/TheChamber.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [4.0],
+    'bookmark': [],
+  },
+  {
+    'id': 675465,
+    'title': 'Fracture',
+    'boxart': 'http://cdn-0.nflximg.com/images/2891/Fracture.jpg',
+    'uri': 'http://api.netflix.com/catalog/titles/movies/70111470',
+    'rating': [5.0],
+    'bookmark': [{ id:432534, time:65876586 }],
+  },
+];
+
+// generate an Array of Objects that contain only the id and title key/value pairs. 
+// retain releases with both id and title data
+// return an array of objects with the id and title of each
+
+var hasIdAndTitle = function(release) {
+  return release.id && release.title;
+}
+
+var idAndTitle = function(release) {
+  return {id: release.id, title: release.title};
+}
+
+function processReleaseData(releases) {
+  return releases.filter(hasIdAndTitle).map(idAndTitle);
+};
+
+//console.log(processReleaseData(newReleases));
+
+function convertToDecimal(number, base) {
+  return number.split('').reverse()
+               .reduce(function(acc, value, index) {
+                 return acc + value * base ** index;
+               }, 0);
+}
+
+//console.log(convertToDecimal('1', 8));
+//console.log(convertToDecimal('10', 8));
+//console.log(convertToDecimal('130', 8));
+//console.log(convertToDecimal('17', 8));
+//console.log(convertToDecimal('2047', 8));
+//console.log(convertToDecimal('011', 8));
+
+function anagram(word, wordList) {
+  return wordList.filter(function(wordFromList) {
+    return areAnagrams(word, wordFromList);
+  });
+}
+
+function areAnagrams(word1, word2) {
+  return sortWord(word1) === sortWord(word2);
+}
+
+function sortWord(word) {
+  return word.split('').sort().join('');
+}
+
+//console.log(anagram('listen', ['enlists', 'google', 'inlets', 'banana']));
+//console.log(anagram('listen', ['enlist', 'google', 'inlets', 'banana']));
+
+var bands = [
+  { name: 'sunset rubdown', country: 'UK', active: false },
+  { name: 'women', country: 'Germany', active: false },
+  { name: 'a silver mt. zion', country: 'Spain', active: true },
+];
+
+function processBands(bands) {
+  return bands.map(function(band) {
+    name = band.name.split(' ').map(function(word) {
+      word = word.split('').filter(function(character) {
+        return character !== '.';
+      }).join('');
+
+      return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    }).join(' ');
+
+    return {name: name, country: "Canada", active: band.active};
+  });
+}
+
+//console.log(processBands(bands));
+
+function processBands2(bands) {
+  bands.map(function(band) {
+    updateCountry(band);
+    capitalizeBandName(band);
+    removeDotsInBandName(band);
+  });
+}
+
+function updateCountry(band) {
+  band.country = 'Canada';
+}
+
+function capitalizeBandName(band) {
+  band.name = band.name.split(' ').map(function(word){
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
+}
+
+function removeDotsInBandName(band) {
+  band.name = band.name.split('').filter(function(character) {
+    return character !== '.';
+  }).join('');
+}
+
+//processBands2(bands);
+//console.log(bands);
+
+function processBands3(bands) {
+  var processedBands = bands.map(function(band) {
+    name = capitalizePhrase(band.name);
+    name = removeDotsInString(name);
+
+    return {
+      name: name,
+      country: 'Canada',
+      active: band.active,
+    };
+  });
+
+  return processedBands;
+}
+
+//NEXT: FINISH THIS FUNCTION
+
+function capitalizePhrase(phrase) {
+  return
+  
+}
+
+function removeDotsInString(string) {
+
+}
