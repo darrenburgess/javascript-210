@@ -1372,13 +1372,39 @@ function processBands3(bands) {
   return processedBands;
 }
 
-//NEXT: FINISH THIS FUNCTION
-
 function capitalizePhrase(phrase) {
-  return
-  
+  return phrase.split(' ').map(function(word) {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' '); 
 }
 
 function removeDotsInString(string) {
-
+  return string.split('').filter(function(character) {
+    return character !== '.';
+  }).join('');
 }
+
+//console.log(processBands3(bands));
+
+function isPalindrome(str) {
+  return str === str.split('').reverse().join('');
+}
+
+longestPalindrome = function(str){
+  var length = str.length;
+  var string;
+  var result = 0;
+ 
+  for (var i = length; i >= 1; i -= 1) {
+    for (var j = 0; j + i <= length; j += 1) {
+      string = str.slice(j, j + i + 1);
+
+      if (isPalindrome(string)) {
+        return string.length;
+      };
+    };
+  };
+ 
+  return result;
+}
+
