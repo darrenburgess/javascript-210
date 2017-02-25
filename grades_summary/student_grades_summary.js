@@ -20,7 +20,7 @@ function generateClassRecordSummary(scores) {
 function constructStudentGrades(scores) {
   // returns an array of student grades in the form ['93 (A)', '81(C)', etc]
   return convertScoresObjectToArray(scores).map(function(student) {
-    return deriveStudentGrade(averageExamScore(student), exerciseSum(student));
+    return deriveStudentGrade(averageExamScore(student), sumArray(student.scores.exercises));
   });
 }
 
@@ -35,11 +35,6 @@ function averageExamScore(student) {
   var countExams = student.scores.exams.length;
   var sumExams = sumArray(student.scores.exams); 
   return Math.round(sumExams / countExams);
-}
-
-function exerciseSum(student) {
-  // sums the exercise scores for the current student
-  return sumArray(student.scores.exercises);
 }
 
 function getLetterGrade(score) {
