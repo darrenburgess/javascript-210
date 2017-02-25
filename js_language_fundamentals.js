@@ -1392,12 +1392,11 @@ function isPalindrome(str) {
 
 longestPalindrome = function(str){
   var length = str.length;
-  var string;
   var result = 0;
  
   for (var i = length; i >= 1; i -= 1) {
     for (var j = 0; j + i <= length; j += 1) {
-      string = str.slice(j, j + i + 1);
+      var string = str.slice(j, j + i + 1);
 
       if (isPalindrome(string)) {
         return string.length;
@@ -1407,4 +1406,8 @@ longestPalindrome = function(str){
  
   return result;
 }
+
+//
+// Exercise: Class Records Summary
+//
 
