@@ -1647,4 +1647,38 @@ function sentiment2(text) {
   console.log('Negative sentiments: ' + negWords.toString());
 }
 
-sentiment2(textExcerpt);
+//sentiment2(textExcerpt);
+
+function mailCount(emailData) {
+  // in: email data string
+  // out: count of emails
+  // out: date range of emails
+  // alg:
+  // - replace whitespace with space
+  // - split the string on ##||## to get count of emails
+  // - 
+
+  emailData.replace(/\n/, '');
+  var emailArray = emailData.replace(/\s/g, ' ').split('##||##');
+  var emailCount = emailArray.length;
+
+  dates = emailArray.map(function(email) {
+    date = email.match(/Date: \d\d-\d\d-\d\d\d\d#\/#/g);
+    date = date[0].replace('Date: ', '').replace('#/#', '');
+    return date;
+  });
+
+  dates = dates.map(function(date) {
+    return new Date(date);
+  }).sort();
+
+  console.log(dates);
+
+  var dateFirst = new Date(dates[0]);
+  var dateLast = new Date(dates[dates.length - 1]);
+
+  console.log('Count of Email: ' + emailCount);
+  console.log('Date Range: ' + dateFirst.toDateString() + ' - ' + dateLast.toDateString());
+}
+
+mailCount(emailData);
