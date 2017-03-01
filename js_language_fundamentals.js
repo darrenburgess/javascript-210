@@ -1617,7 +1617,7 @@ function sentiment(text) {
   var posWords = [];
   var negWords = [];
 
-  words = text.toLowerCase().replace(/[-,\s\.\[\]\?:]/g, ' ').split(' ');
+  words = text.toLowerCase().replace(/[!-,\s\.\[\]\?:]/g, ' ').split(' ');
 
   words.forEach(function(word) {
     if (positiveWords.indexOf(word) >= 0) posWords.push(word);
@@ -1630,4 +1630,21 @@ function sentiment(text) {
   console.log('Negative sentiments: ' + negWords.toString());
 }
 
-sentiment(textExcerpt);
+//sentiment(textExcerpt);
+
+
+function sentiment2(text) {
+  var positiveRegex = /(fortunes?)|(dream(s|t|ed)?)|(love(s|ed)?)|(respect(s|ed)?)|(patien(ce|t)?)|(devout(ly)?)|(noble)|(resolut(e|ion)?)/gi;
+
+  var negativeRegex = /(die(s|d)?)|(heartached?)|(death)|(despise(s|d)?)|(scorn(s|ed)?)|(weary)|(troubles?)|(oppress(es|ed|or)?)/gi;
+
+  var posWords = text.match(positiveRegex);
+  var negWords = text.match(negativeRegex);
+
+  console.log('There are ' + posWords.length + ' positive words');
+  console.log('Positive sentiments: ' + posWords.toString());
+  console.log('There are ' + negWords.length + ' negative words');
+  console.log('Negative sentiments: ' + negWords.toString());
+}
+
+sentiment2(textExcerpt);
