@@ -1407,7 +1407,133 @@ longestPalindrome = function(str){
   return result;
 }
 
-//
-// Exercise: Class Records Summary
-//
+var fighters = [
+	["Ryu", "E.Honda", "Blanka", "Guile", "Balrog", "Vega"],
+	["Ken", "Chun Li", "Zangief", "Dhalsim", "Sagat", "M.Bison"]
+];
 
+var position = [0,0];
+
+moves = ["right","right","right","right","right","right","right","right"];
+
+function streetFighterSelection(fighters, position, moves) {
+  var result = [];
+  if (moves.length === 0) return [];
+
+  for (var i = 0; i < moves.length; i += 1) {
+
+    if (moves[i] === 'up') {
+      if (position[0] === 1) position[0] -= 1;
+    } else if (moves[i] === 'down') {
+      if (position[0] === 0) position[0] = 1;
+    } else if (moves[i] === 'left') {
+      if (position[1] > 0) {
+        position[1] -= 1;
+      } else if (position[1] === 0 && i === 0) {
+        position[1] = 5;
+      } else if (position[1] === 0 && i !== 0) {
+        position[1] = 5;
+      }
+    } else if (moves[i] === 'right') {
+      if (position[1] < 5) {
+        position[1] += 1;
+      } else if (position[1] === 5) {
+        position[1] = 0;
+      }
+    };  
+
+    result.push(fighters[position[0]][position[1]]);
+  };
+  
+  return result;
+}
+
+//console.log(streetFighterSelection(fighters, position, moves));
+
+var text = 'The quick brown fox jumps over the lazy dog.';
+
+function capitalize(words) {
+  return words.split(' ').map(function(word) {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
+}
+
+//console.log(capitalize(text));
+
+function countWordInText(word, text) {
+  text = text.toLowerCase('').split('').filter(function(character) {});
+
+  return text.split(' ').filter(function(werd) {
+    return werd === word;
+  }).length;
+}
+
+//console.log(countWordInText('the', text));
+//console.log(countWordInText('dog', text));
+
+function greet() {
+  var name = prompt('What is your name?');
+  var greet = 'Hello ';
+
+  if (name[name.length - 1] === '!') {
+    greet = greet.toUpperCase();
+    name = name.toUpperCase()
+  }
+
+  console.log(greet + name);
+}
+
+//return the total number of smiling faces in the array
+function countSmileys(arr) {
+  return arr.reduce(function(count, smiley) {
+    return smiley.match(/[:;][~-]?[)D]/) ? ++count : count;  
+  }, 0);
+}
+
+//console.log(countSmileys([':D',':~)',';~D',':)']), 4);
+
+function isUrl(text) {
+  text = text.toLowerCase();
+  return text.match(/^https*:\/\/\w+\.[a-z]{3}$/) ? true : false;
+}
+
+function getFields(text) {
+
+}
+
+function reverse(string) {
+  return string.split('').reverse().join('');
+}
+
+function acronym(string) {
+  var result;
+  words = string.replace(/-/g, ' ').split(' ');
+  
+  letters = words.map(function(word) {
+    return word[0];
+  });
+  
+  return letters.join('').toUpperCase();
+}
+
+//console.log( acronym('Portable Network Graphics') );
+//console.log( acronym('First In, First Out') );
+//console.log( acronym('PHP: HyperText Preprocessor') );
+//console.log( acronym('Complementary metal-oxide semiconductor') );
+//console.log( acronym('Hyper-text Markup Language') );
+
+function isValidEmail(email) {
+
+}
+
+console.log(isValidEmail('Foo@baz.com.ph'));
+console.log(isValidEmail('Foo@mx.baz.com.ph'));
+console.log(isValidEmail('foo@baz.com')); 
+console.log(isValidEmail('foo@baz.ph'));
+console.log(isValidEmail('HELLO123@baz'));
+console.log(isValidEmail('foo.bar@baz.to'));
+console.log(isValidEmail('foo@baz.'));
+console.log(isValidEmail('foo_bat@baz'));
+console.log(isValidEmail('foo@bar.a12'));
+console.log(isValidEmail('foo_bar@baz.com'));
+console.log(isValidEmail('foo@bar.....com'));  

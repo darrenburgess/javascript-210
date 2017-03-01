@@ -100,19 +100,20 @@ function sumArray(array) {
   }); 
 }
 
-var testResult = {studentGrades: [ '87 (B)', '73 (D)', '84 (C)', '86 (B)', '56 (F)' ],
-                  exams: [{ average: 75.6, minimum: 50, maximum: 100 },
-                          { average: 86.4, minimum: 70, maximum: 100 },
-                          { average: 87.6, minimum: 60, maximum: 100 },
-                          { average: 91.8, minimum: 80, maximum: 100 },],};
+//var testResult = {studentGrades: [ '87 (B)', '73 (D)', '84 (C)', '86 (B)', '56 (F)' ],
+                  //exams: [{ average: 75.6, minimum: 50, maximum: 100 },
+                          //{ average: 86.4, minimum: 70, maximum: 100 },
+                          //{ average: 87.6, minimum: 60, maximum: 100 },
+                          //{ average: 91.8, minimum: 80, maximum: 100 },],};
 
-var result = (generateClassRecordSummary(studentScores))
-console.log('RESULT:')
-console.log(result);
-console.log('TEST RESULT:')
-console.log(testResult);
-document.write('RESULT:<br>')
-document.write(JSON.stringify(result));
-document.write('<br><br>');
-document.write('TEST RESULT:<br>')
-document.write(JSON.stringify(testResult));
+//var result = (generateClassRecordSummary(studentScores))
+//console.log('RESULT:')
+//console.log(result);
+//console.log('TEST RESULT:')
+//console.log(testResult);
+//document.write('RESULT:<br>')
+//document.write(JSON.stringify(result));
+//document.write('<br><br>');
+//document.write('TEST RESULT:<br>')
+//document.write(JSON.stringify(testResult));
+
