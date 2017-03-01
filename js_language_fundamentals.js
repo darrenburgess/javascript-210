@@ -1523,7 +1523,8 @@ function acronym(string) {
 //console.log( acronym('Hyper-text Markup Language') );
 
 function isValidEmail(email) {
-
+  var regex = /^[a-z\d]+@([a-z]+\.)+[a-z]+$/i;
+  return email.match(regex) ? true : false;
 }
 
 console.log(isValidEmail('Foo@baz.com.ph'));
