@@ -1681,4 +1681,200 @@ function mailCount(emailData) {
   console.log('Date Range: ' + dateFirst.toDateString() + ' - ' + dateLast.toDateString());
 }
 
-mailCount(emailData);
+//mailCount(emailData);
+
+var longText = 'Four score and seven years ago our fathers brought forth' +
+  ' on this continent a new nation, conceived in liberty, and' +
+  ' dedicated to the proposition that all men are created' +
+  ' equal.' +
+  ' Now we are engaged in a great civil war, testing whether' +
+  ' that nation, or any nation so conceived and so dedicated,' +
+  ' can long endure. We are met on a great battlefield of that' +
+  ' war. We have come to dedicate a portion of that field, as' +
+  ' a final resting place for those who here gave their lives' +
+  ' that that nation might live. It is altogether fitting and' +
+  ' proper that we should do this.' +
+  ' But, in a larger sense, we can not dedicate, we can not' +
+  ' consecrate, we can not hallow this ground. The brave' +
+  ' men, living and dead, who struggled here, have' +
+  ' consecrated it, far above our poor power to add or' +
+  ' detract. The world will little note, nor long remember' +
+  ' what we say here, but it can never forget what they' +
+  ' did here. It is for us the living, rather, to be dedicated' +
+  ' here to the unfinished work which they who fought' +
+  ' here have thus far so nobly advanced. It is rather for' +
+  ' us to be here dedicated to the great task remaining' +
+  ' before us -- that from these honored dead we take' +
+  ' increased devotion to that cause for which they gave' +
+  ' the last full measure of devotion -- that we here highly' +
+  ' resolve that these dead shall not have died in vain' +
+  ' -- that this nation, under God, shall have a new birth' +
+  ' of freedom -- and that government of the people, by' +
+  ' the people, for the people, shall not perish from the' +
+  ' earth.';
+
+function longestSentence(text) {
+  var longestSentence;
+  var longestLength = 0;
+  var sentences = text.split(/[.!\?]+/);
+
+  sentences.forEach(function(sentence) {
+    var length = sentence.trim().split(' ').length;
+    if (length > longestLength) {
+      longestLength = length;
+      longestSentence = sentence.trim();
+    }
+  });
+
+  console.log(longestSentence);
+  console.log('The longest sentence has ' + longestLength + ' words.');
+}
+
+//longestSentence(longText);
+
+function compareVersions(version1, version2) {
+  // in: two version numbers - strings
+  // out: 1 if v1 > v2
+  //      -1 if v1 < v2
+  //      0 if v1 = v2
+  //      null if input illegal (just numbers and .)
+  // alg:
+  //   use regex to reject bad input
+  //   split each numbers on .
+  //   loop from 0 to longer length - 1
+  //     compare the numbers at the index of the iterator
+  //     if there is no number at the index then the value is 0
+  //     if v1 < v2 return -1
+  //     if v1 > v2 return +1
+  //     if v1 = v2 keep looping 
+  //     return 0 at final line
+ 
+  var length, num1, num2;
+  var validInput = /^\d+(\.?\d+)*$/;
+
+  if (!validInput.test(version1) || !validInput.test(version2)) {
+    return null;
+  };
+
+  version1 = version1.split('.').map(Number);
+  version2 = version2.split('.').map(Number);
+
+  // 1.2.2.0  [1,2,2,0]
+  // 1.3      [1,3, undefined, undefined]
+
+  length = Math.max(version1.length, version2.length);
+
+  for (var i = 0; i < length; i += 1) {
+    num1 = version1[i] || 0;
+    num2 = version2[i] || 0;
+
+    if (num1 < num2) {
+      return -1;
+    } else if ( num1 > num2) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+//console.log(compareVersions('1.2', '1.2.0'))       // 0 
+//console.log(compareVersions('1.2', '1.2.0.0'))     // 0 
+//console.log(compareVersions('0.1', '1'))           // -1
+//console.log(compareVersions('1.0', '1.1'))         // -1
+//console.log(compareVersions('1.1', '1.2'))         // -1
+//console.log(compareVersions('1.2', '1.2.0.1'))     // -1
+//console.log(compareVersions('1.18.2', '13.37'))    // -1
+//console.log(compareVersions('1', '0.1'))           // 1
+//console.log(compareVersions('1.18.2', '1.2.0.0'))  // 1
+//console.log(compareVersions('badinput', '1.2.1'))  // null
+//console.log(compareVersions('1.2.1', 'badinput'))  // null
+//console.log(compareVersions('1.', '1.1'))  // null
+//console.log(compareVersions('.2.1', '1.2'))  // null
+
+function cleanPhoneNumbers(phoneNumber) {
+  // ignore any non number characters
+  // if length < 10 then bad number
+  // if lenght = 10 then good number
+  // if length = 11 and num[0] = 1, trim the 1 slice the number starting at index 1
+  // if length = 11 and num[0] <> 1, then bad number 
+  // if length > 11, bad number
+  // return 000000000 if bad number
+  // in: string
+  // out: 10 digit number or 0000000000
+  // datastructure: string, no need to work with arrays
+  // alg: 
+  //   clean input with regex to remove non number characters
+  //   return 0000000000 for len>11 or len=11 && char 1 = 1 or len < 10
+  //   strip a leading 1 if len 11
+  
+  phoneNumber = phoneNumber.replace(/[^\d]/g, '');
+  var len = phoneNumber.length;
+
+  if (len < 10 || len > 11 || ( len === 11 && phoneNumber[0] !== '1' )) {
+    return '0000000000';
+  };
+
+  return len === 11 && phoneNumber[0] === '1' ? phoneNumber.slice(1) : phoneNumber; 
+}
+
+//console.log(cleanPhoneNumbers('234-234-2344'));   // 23423423444
+//console.log(cleanPhoneNumbers('1-234-234-2344'));   // 23423423444
+//console.log(cleanPhoneNumbers('234-2344'));   // 0000000000
+//console.log(cleanPhoneNumbers('12-234-234-2344'));   // 0000000000
+//console.log(cleanPhoneNumbers('bad input'));   // 0000000000
+//console.log(cleanPhoneNumbers('2-234-234-2344'));   // 0000000000
+//console.log(cleanPhoneNumbers('1-(234)-234-2344 cell'));   // 2342342344
+
+function luhnCheckSum(number) {
+  // in: number expressed as a string
+  // out: true or false if the number is valid
+  // rules: 
+  //   iterate from right
+  //   double each digit
+  //   if digit greater than 10, subtract 9
+  //   sum the digits
+  //   return true if sum % 10 = 0, else return false
+  // alg:
+  //   clean the input using regex to remove non-number chars
+  //   split input into array
+  //   map array parsing each digit
+  //     if len is odd, then only process odd indexes
+  //     if len is even, then only prcess even indexes
+  //     return double the number, subtract 9 if > 10
+  //     return number if not process
+  //   reduce the result, summing
+  //   return true if sum % 10 === 0 else false 
+  
+  var cleanNumber = number.replace(/\D/g, '');
+  var numArray = cleanNumber.split('').map(Number);
+  var isEvenLength = isEven(numArray.length); 
+  var mapped;
+  var sum;
+
+  function isEven(number) {
+    return number % 2 === 0 ? true : false;
+  }
+
+  mapped = numArray.map(function(num, idx) {
+    if ((isEvenLength && isEven(idx)) || (!isEvenLength && !isEven(idx))) {
+      return num * 2 >= 10 ? num * 2 - 9 : num * 2; 
+    } else {
+      return num;
+    }
+  });
+
+  sum = mapped.reduce(function(a, b) { return a + b; }, 0);
+
+  return sum % 10 === 0 ? true : false; 
+}
+
+console.log(luhnCheckSum('2323 2005 7766 3554'));  // true
+console.log(luhnCheckSum('visa: 2323 2005 7766 3554'));  // true
+console.log(luhnCheckSum('8763'));  // true
+console.log(luhnCheckSum('11114'));  // true
+console.log(luhnCheckSum('2323 2005 7766 35547'));  // false
+console.log(luhnCheckSum('2323 2005 7766 3551'));  // false
+console.log(luhnCheckSum('1111'));  // false
+
+
