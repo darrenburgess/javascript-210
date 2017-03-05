@@ -1846,24 +1846,15 @@ function luhnCheckSum(number) {
   //   reduce the result, summing
   //   return true if sum % 10 === 0 else false 
   
-  var cleanNumber = number.replace(/\D/g, '');
-  var numArray = cleanNumber.split('').map(Number).reverse();
-  var mapped;
-  var checkDigit;
+  var numArray = number.replace(/\D/g, '').split('').reverse().map(Number);
 
-  function isOdd(number) {
-    return number % 2 === 0 ? false : true;
-  }
-
-  mapped = numArray.map(function(num, idx) {
-    if (isOdd(idx)) {
-      return num * 2 >= 10 ? num * 2 - 9 : num * 2; 
+  var checkDigit = numArray.reduce(function(sum, num, idx) {
+    if (idx % 2 === 1) {
+      return num * 2 >= 10 ? sum + (num * 2 - 9) : sum + num * 2;
     } else {
-      return num;
+      return sum + num;
     }
-  });
-
-  checkDigit = mapped.reduce(function(a, b) { return a + b; }, 0);
+  }, 0);
 
   return checkDigit % 10 === 0 ? true : false; 
 }
