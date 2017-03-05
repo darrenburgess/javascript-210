@@ -1847,26 +1847,25 @@ function luhnCheckSum(number) {
   //   return true if sum % 10 === 0 else false 
   
   var cleanNumber = number.replace(/\D/g, '');
-  var numArray = cleanNumber.split('').map(Number);
-  var isEvenLength = isEven(numArray.length); 
+  var numArray = cleanNumber.split('').map(Number).reverse();
   var mapped;
-  var sum;
+  var checkDigit;
 
-  function isEven(number) {
-    return number % 2 === 0 ? true : false;
+  function isOdd(number) {
+    return number % 2 === 0 ? false : true;
   }
 
   mapped = numArray.map(function(num, idx) {
-    if ((isEvenLength && isEven(idx)) || (!isEvenLength && !isEven(idx))) {
+    if (isOdd(idx)) {
       return num * 2 >= 10 ? num * 2 - 9 : num * 2; 
     } else {
       return num;
     }
   });
 
-  sum = mapped.reduce(function(a, b) { return a + b; }, 0);
+  checkDigit = mapped.reduce(function(a, b) { return a + b; }, 0);
 
-  return sum % 10 === 0 ? true : false; 
+  return checkDigit % 10 === 0 ? true : false; 
 }
 
 console.log(luhnCheckSum('2323 2005 7766 3554'));  // true
