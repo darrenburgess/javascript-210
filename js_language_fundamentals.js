@@ -1949,6 +1949,7 @@ function isBlockWord(word) {
       block = blocks[j];
       if (block.includes(letter)) {
         usedLetters.push(block[0], block[1]);
+        blocks.splice(j, 1);
         break;
       };
     };
