@@ -1859,12 +1859,122 @@ function luhnCheckSum(number) {
   return checkDigit % 10 === 0 ? true : false; 
 }
 
-console.log(luhnCheckSum('2323 2005 7766 3554'));  // true
-console.log(luhnCheckSum('visa: 2323 2005 7766 3554'));  // true
-console.log(luhnCheckSum('8763'));  // true
-console.log(luhnCheckSum('11114'));  // true
-console.log(luhnCheckSum('2323 2005 7766 35547'));  // false
-console.log(luhnCheckSum('2323 2005 7766 3551'));  // false
-console.log(luhnCheckSum('1111'));  // false
+//console.log(luhnCheckSum('2323 2005 7766 3554'));  // true
+//console.log(luhnCheckSum('visa: 2323 2005 7766 3554'));  // true
+//console.log(luhnCheckSum('8763'));  // true
+//console.log(luhnCheckSum('11114'));  // true
+//console.log(luhnCheckSum('2323 2005 7766 35547'));  // false
+//console.log(luhnCheckSum('2323 2005 7766 3551'));  // false
+//console.log(luhnCheckSum('1111'));  // false
+
+// write a function to make the number valid per the luhn formula
+// and return the original number plus that digit.  This should give
+// 2323 2005 7766 3554 in response to 2323 2005 7766 355
+// in: number, potentially valid, that need just one more digit
+// out: luhn-valid number with the additional digit added
+// alg1: 
+//       if valid return unchanged
+//       if not valid loop 0-9 and add to the end of the provided number, then test with luhnCheckSum();
+
+// REFACTOR to consider a different algorithm
+// try summing the numbers and then seeing what the difference is
+// to get it to a number that is divisible by 10
+function makeLuhnValid(number) {
+  if (luhnCheckSum(number)) {
+    return number;
+  }
+  
+  var newNumber;
+
+  for (var i = 0; i < 10; i += 1) {
+    if (luhnCheckSum(number + i.toString())) {
+      break;
+    }
+  }
+
+  return number + i.toString();
+}
+
+//console.log(makeLuhnValid('2323 2005 7766 355'));  // 2323 2005 7766 3554
+//console.log(makeLuhnValid('876'));   // 8673
+//console.log(makeLuhnValid('1111'));   // 11114
+//console.log(makeLuhnValid('34534562'));   // ??
+
+//in: string(word)
+//out: true or false if the word can be spelled from the available blocks
+//rules: use each block once, can only use one letter from each block
+//alg:
+//  lowercase the string
+//  split into array of letters
+//  iterate over array of letters
+//    loop array of objects
+//      if obj.letters.includes(letter)
+//        if obj.status === true then return false
+//          else set object.status = true(used)
+//  end loop
+//  return true
+// REFACTOR: create array of pairs, then just delete the pair if we use it
+// use Array.prototype.some() and includes() to check the array. use splice to remove the element
+// remember to abstract certain parts to a function
+//
+// new algorithm:
+//   initialize usedLetters array
+//   initialize blocks array
+//   lowercase the string
+//   split into array of letters
+//   for loop the array of letters
+//     if usedLetters includes(letter) return false
+//     for loop the array of blocks
+//       if block includes(letter)
+//         push block to usedLetters, one letter at a time
+//         break
+//     end blockloop
+//     splice remove block from array of blocks(optional, improves processing speed, more reflective of reality)
+//   end letter loop
+//   return true
+
+
+function isBlockWord(word) {
+  var usedLetters = [];
+  var blocks = [['b', 'o'], ['x', 'k'], ['d', 'q'], ['c', 'p'], ['n', 'a'],
+                ['g', 't'], ['r', 'e'], ['f', 's'], ['j', 'w'], ['h', 'u'],
+                ['v', 'i'], ['l', 'y'], ['z', 'm']]; 
+
+  var letters = word.toLowerCase().split('');
+  var letter;
+  var block;
+
+  function chooseBlocks() {
+    for (var j = 0; j < blocks.length; j += 1) {
+      block = blocks[j];
+      if (block.includes(letter)) {
+        usedLetters.push(block[0], block[1]);
+        break;
+      };
+    };
+  }
+  
+  for (var i = 0; i < letters.length; i += 1) {
+    letter = letters[i];
+
+    if (usedLetters.includes(letter)){
+      return false;
+    };
+
+    chooseBlocks();
+  };
+
+  return true;
+}
+
+console.log(isBlockWord('modulate'));  // true
+console.log(isBlockWord('batch'));  // true
+console.log(isBlockWord('BaTcH'));  // true
+console.log(isBlockWord('botch'));  // false B/O
+console.log(isBlockWord('coffee')); // false
+
+
+
+
 
 
