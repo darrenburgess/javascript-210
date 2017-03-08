@@ -1,4 +1,5 @@
 // you are given a list of numbers in a shorthand range notation where only the significant part of the next number is written because we know the numbers are always increasing(ex. 1,2,7,2,4,1 represents 1,3,7,12,14,21). Some people use different separators for their ranges (ex. 1-3, 1-2 or 1:3, 1:2 or 1..3, 1..2 represent the same numbers 1,2,3,11,12) range limits are always inclusive.  Goal: return a list of the complete numbers.  
+
 //
 // Separators: -  :  .. 
 // problem:
