@@ -2092,7 +2092,7 @@ function parseNumberNotation(numberNotation) {
       range = processRange(currentValue, lastValue);
       range.forEach(function(element) {
         finalResult.push(convertSignificantPart(element, lastValue));
-        lastValue = element
+        lastValue = element;
       });
     }
   });
