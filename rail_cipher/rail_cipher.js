@@ -69,20 +69,14 @@
 function encodeRailFenceCipher(string, numberRails) {
   var i;
   var rails = Array.apply(null, Array(numberRails)).map(function() {return [];});
-  var direction = 1;
-  var railIterator = 0;
   var result = '';
+  var newRails;
 
   letters = string.split('');
 
-  letters.forEach(function(letter, index) {
-    rails[railIterator][index] = letter;
-    if (railIterator === numberRails - 1) direction = -1; 
-    if (railIterator === 0) direction = 1;
-    railIterator += direction;
-  });
+  newRails = letters.forEach(applyLettersToRailsArray.bind(rails));
 
-  result = rails.reduce(function(finalString, rail) {
+  result = newRails.reduce(function(finalString, rail) {
     return rail.reduce(function(letters, letter) {
       return letters + letter;
     }, finalString); 
@@ -91,6 +85,23 @@ function encodeRailFenceCipher(string, numberRails) {
   return result;
 }
 
+function applyLettersToRailsArray(letter, index) {
+  var direction = 1;
+  var railIterator = 0;
+  var rails = this;
+  var numberRails = rails.length;
+
+  rails[railIterator][index] = letter;
+
+  if (railIterator === numberRails - 1) direction = -1; 
+  if (railIterator === 0) direction = 1;
+
+  railIterator += direction;
+
+  return rails;
+}
+
 console.log(encodeRailFenceCipher('hello world', 3));  //  horel ollwd
 console.log(encodeRailFenceCipher('hello world', 4));  //  hwe olordll 
 console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 3));  // wecrlteerdsoeefeaocaivden 
+console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 4));  // wireeedseeeacaecvdltnrofo
