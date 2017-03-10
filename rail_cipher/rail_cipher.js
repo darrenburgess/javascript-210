@@ -67,41 +67,96 @@
 //     this will work because reduce will only iterate the array indexes that have a value
 
 function encodeRailFenceCipher(string, numberRails) {
-  var i;
-  var rails = Array.apply(null, Array(numberRails)).map(function() {return [];});
-  var result = '';
-  var newRails;
-
-  letters = string.split('');
-
-  newRails = letters.forEach(applyLettersToRailsArray.bind(rails));
-
-  result = newRails.reduce(function(finalString, rail) {
-    return rail.reduce(function(letters, letter) {
-      return letters + letter;
-    }, finalString); 
-  }, '');
-
-  return result;
+  var emptyRails = Array.apply(null, Array(numberRails)).map(function() {return [];});
+  var filledRails = applyLettersToRailsArray(emptyRails, string.split(''));
+  return reduceRailArrayToString(filledRails);
 }
 
-function applyLettersToRailsArray(letter, index) {
+function applyLettersToRailsArray(rails, letters) {
   var direction = 1;
   var railIterator = 0;
-  var rails = this;
   var numberRails = rails.length;
 
-  rails[railIterator][index] = letter;
-
-  if (railIterator === numberRails - 1) direction = -1; 
-  if (railIterator === 0) direction = 1;
-
-  railIterator += direction;
+  letters.forEach(function(letter, index) {
+    rails[railIterator][index] = letter;
+    direction = reverseDirectionCheck(direction, numberRails, railIterator);
+    railIterator += direction;
+  })
 
   return rails;
 }
 
-console.log(encodeRailFenceCipher('hello world', 3));  //  horel ollwd
-console.log(encodeRailFenceCipher('hello world', 4));  //  hwe olordll 
-console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 3));  // wecrlteerdsoeefeaocaivden 
-console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 4));  // wireeedseeeacaecvdltnrofo
+function reduceRailArrayToString(railArray) {
+  return railArray.reduce(function(finalString, rail) {
+    return rail.reduce(function(letters, letter) {
+      return letters + letter;
+    }, finalString); 
+  }, '');
+}
+
+function reverseDirectionCheck(direction, numberRails, railIterator) {
+  if (railIterator === numberRails - 1) direction = -1; 
+  if (railIterator === 0) direction = 1;
+  return direction; 
+}
+
+// rail fence cipher decoding
+// alg:
+//   forEach loop the encoded string reuse applyLetters function 
+//     set each index position to a character (can reuse encode function)
+//     incrementing the rails up or down
+//     reverse direction when you hit the top or bottom
+//   end loop
+//   loop the array of characters in encoded string
+//     loop the array of rails
+//       loop each rail (it will only access the defined positions)
+//         set each defined position until you get to end of the rail
+//       end rail loop
+//     end arry of rails loop
+//   end characters loop
+//   return looped length of charaters
+//     append each char to result
+//     change directions as needed at top or bottom.
+
+function decodeRailFenceCipher(string, numberRails) {
+  var emptyRails = Array.apply(null, Array(numberRails)).map(function() {return [];});
+  var filledRails = applyLettersToRailsArray(emptyRails, string.split(''));
+  var characterIndex = 0;
+  var railIterator = 0;
+  var direction = 1;
+  var result = '';
+
+  filledRails.forEach(function(rail) {
+    rail.forEach(function(node, position, rail) {
+      rail[position] = string[characterIndex];
+      characterIndex += 1;
+    });
+  });
+
+  for (var i = 0; i < string.length; i += 1) {
+    result += filledRails[railIterator][i];
+    direction = reverseDirectionCheck(direction, numberRails, railIterator);
+    railIterator += direction;
+  }
+
+  return result;
+}
+
+//console.log(encodeRailFenceCipher('hello world', 3));
+//console.log(decodeRailFenceCipher('horel ollwd', 3));
+
+//console.log(encodeRailFenceCipher('hello world', 3));  //  horel ollwd
+//console.log(encodeRailFenceCipher('hello world', 4));  //  hwe olordll 
+//console.log(encodeRailFenceCipher('hello world', 5));  //  hwe olordll 
+
+//console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 3));  // wecrlteerdsoeefeaocaivden 
+//console.log(encodeRailFenceCipher('wearediscoveredfleeatonce', 4));  // wireeedseeeacaecvdltnrofo
+//console.log(decodeRailFenceCipher('wecrlteerdsoeefeaocaivden', 3));
+//console.log(decodeRailFenceCipher('wireeedseeeacaecvdltnrofo', 4));
+
+var lorem = 'Amet non facere minima iure unde, provident, veritatis officiis asperiores ipsa eveniet sit! Deserunt autem excepturi quibusdam iure unde! Porro alias distinctio ipsam iure exercitationem molestiae. Voluptate fugiat quasi maiores!jk'
+
+var randomRailCount = Math.floor(Math.random() * (100 - 2 + 1)) + 2;
+
+console.log(decodeRailFenceCipher(encodeRailFenceCipher(lorem, randomRailCount), randomRailCount) === lorem);
+// true
