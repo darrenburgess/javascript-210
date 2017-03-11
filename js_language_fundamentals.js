@@ -2117,3 +2117,55 @@ console.log(parseNumberNotation( '104..02' ))           //    => 104,105...202
 console.log(parseNumberNotation( '545,64:11' ))         //    => 545,564,565...611
 console.log(parseNumberNotation( '1,3,5,7,9-1,3-2' ))   //    => 1,3,4,5,9,10,11,13,14,15,16,17,18,19,20,21,22 
 console.log(parseNumberNotation( '1-3, 5:7, 9..1'))     //    => 1,2,3,5,6,7,9,10,11
+
+// rail fence cipher
+//
+// Implement the encoding and decoding of the rail fence cipher
+// In the rail fence the cipher, the message is written downwards
+// on successive rails of an imaginary fence, then moving up
+// when we get to the bottom. like a zig-zag. Finally the message
+// is read off in rows.
+// example
+// WEAREDISCOVEREDFLEEATONCE -> WECRLTEERDSOEEFEAOCAIVDEN
+// W . . . E . . . C . . . R . . . L . . . T . . . E  // start from 0, every 5th character (rows + 2?)
+// . E . R . D . S . O . E . E . F . E . A . O . C .  // start from 1, every 2nd character (rows - 1?)
+// . . A . . . I . . . V . . . D . . . E . . . N . .  // start from 2, every 5th character (rows + 2?)
+//
+// build two functions:
+//   encodeRailFenceCipher(plainText, numberOfRails) 
+//     returns the encoded string 
+//   decodeRailFenceCipher(encodedText, numberOfRails)
+//     returns the plain text string
+//
+// ENCODING
+// problem/requirements:
+//   - provided a plain text string and a number of rails
+//   - the string is laid out down and diagonally on each successive rail
+//   - until reaching the bottom
+//   - then diagonally up until reaching the top
+//   - until reaching the end of the string
+//   - then read each row, removing cells with no character to form a string
+//   - concatinate each row together to form the encoded string
+//   - spaces are optional, we can remove spaces before encoding or keep them
+//   - for this exercise, we will retain spaces and include them in the encoding
+// 
+// examples:
+// encodeRailFenceCipher('hello world', 3) => HOREL OLLWD
+// H . . . O . . . R . .   0 4 8       // start from 0, every 4th char
+// . E . L . _ . O . L .   1 3 5 7 9   // start from 1, every 2nd char
+// . . L . . . W . . . D   2 6 10      // start from 2, every 4th char
+//
+// encodeRailFenceCipher('hello world', 4) => HWE OLORDLL
+// H . . . . . W . . . .   0 6         // start from 0, every 6th character (rows + 2?)
+// . E . . . _ . O . . .   1 5 7       // start from 1, every 4th, then second character (rows)
+// . . L . O . . . R . D   2 4 8 10    // start from 2, every 2nd, then fourth
+// . . . L . . . . . L .   3 9         // start from 3, every 6th character (rows + 2)
+//
+// data structure:
+//   - array of arrays
+//   - each rail is an array of spaces whose value will be with either undefined or a character
+//   - can we math the length of the array? YES - length of each array is length of string.
+//   - variables:
+//     - rails: the array of arrays
+//     - string: the input string
+
