@@ -2100,23 +2100,23 @@ function parseNumberNotation(numberNotation) {
   return finalResult;
 }
 
-console.log(parseNumberNotation( '0..3' ));             //    => 0,1,2,3
-console.log(parseNumberNotation( '1..3' ));             //    => 1,2,3
-console.log(parseNumberNotation( '1,3,7,2,4,1' ));      //    => 1,3,7,12,14,21
-console.log(parseNumberNotation( '1, 3, 7, 2, 4, 1' )); //    => 1,3,7,12,14,21
-console.log(parseNumberNotation( '545, 65' ));          //    => 545, 565 
-console.log(parseNumberNotation( '545, 32' ));          //    => 1,3,7,12,14,21
-console.log(parseNumberNotation( '104, 02' ));          //    => 104, 202 
-console.log(parseNumberNotation( '1-3,1-2' ));          //    => 1,2,3,11,12
-console.log(parseNumberNotation( '3-1' ));              //    => 3,4,5,6,7,8,9,10,11 
-console.log(parseNumberNotation( '4:5:9' ));            //    => 4,5,6,7,8,9 
-console.log(parseNumberNotation( '1:5:2:5' ));          //    => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
-console.log(parseNumberNotation( '1-5:2' ));            //    => 1,2,3,4,5,6,7,8,9,10,11,12
-console.log(parseNumberNotation( '104-2' ));            //    => 104,105,106,107,108,109,110,111,112
-console.log(parseNumberNotation( '104..02' ))           //    => 104,105...202
-console.log(parseNumberNotation( '545,64:11' ))         //    => 545,564,565...611
-console.log(parseNumberNotation( '1,3,5,7,9-1,3-2' ))   //    => 1,3,4,5,9,10,11,13,14,15,16,17,18,19,20,21,22 
-console.log(parseNumberNotation( '1-3, 5:7, 9..1'))     //    => 1,2,3,5,6,7,9,10,11
+//console.log(parseNumberNotation( '0..3' ));             //    => 0,1,2,3
+//console.log(parseNumberNotation( '1..3' ));             //    => 1,2,3
+//console.log(parseNumberNotation( '1,3,7,2,4,1' ));      //    => 1,3,7,12,14,21
+//console.log(parseNumberNotation( '1, 3, 7, 2, 4, 1' )); //    => 1,3,7,12,14,21
+//console.log(parseNumberNotation( '545, 65' ));          //    => 545, 565 
+//console.log(parseNumberNotation( '545, 32' ));          //    => 1,3,7,12,14,21
+//console.log(parseNumberNotation( '104, 02' ));          //    => 104, 202 
+//console.log(parseNumberNotation( '1-3,1-2' ));          //    => 1,2,3,11,12
+//console.log(parseNumberNotation( '3-1' ));              //    => 3,4,5,6,7,8,9,10,11 
+//console.log(parseNumberNotation( '4:5:9' ));            //    => 4,5,6,7,8,9 
+//console.log(parseNumberNotation( '1:5:2:5' ));          //    => 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+//console.log(parseNumberNotation( '1-5:2' ));            //    => 1,2,3,4,5,6,7,8,9,10,11,12
+//console.log(parseNumberNotation( '104-2' ));            //    => 104,105,106,107,108,109,110,111,112
+//console.log(parseNumberNotation( '104..02' ))           //    => 104,105...202
+//console.log(parseNumberNotation( '545,64:11' ))         //    => 545,564,565...611
+//console.log(parseNumberNotation( '1,3,5,7,9-1,3-2' ))   //    => 1,3,4,5,9,10,11,13,14,15,16,17,18,19,20,21,22 
+//console.log(parseNumberNotation( '1-3, 5:7, 9..1'))     //    => 1,2,3,5,6,7,9,10,11
 
 // rail fence cipher
 //
@@ -2168,4 +2168,249 @@ console.log(parseNumberNotation( '1-3, 5:7, 9..1'))     //    => 1,2,3,5,6,7,9,1
 //   - variables:
 //     - rails: the array of arrays
 //     - string: the input string
+
+// 1000 lights
+// problem
+//   - n lights in a row, all initially off
+//   - n times you will toggle the switches
+//     - 1st time every light is toggled
+//     - 2nd time every 2 lights is toggled
+//     - 3rd time every 3 lights is toggled (starting with 3rd)
+//   - return array of ligths that are on after n repetitions - just the ones that are on
+//   - 0 returns empty array
+//   - assume no bad input.  Switches will always be 0 or greater.  Always integer.
+// examples
+//   - 0: f f f f f 
+//   - 1: t t t t t 
+//   - 2: t f t f t
+//   - 3: t f f f t
+//   - 4: t f f t t
+//   - 5: t f f t f
+//   - r: 0 3
+// data
+//   - array?
+// alg
+//   - initialize: result = []
+//   - convert n to array of n values = boolean false
+//   - for loop 1 to n (i) 
+//     - for loop i - 1 to end of array (j) j+=n
+//       - starting j as index set value to its opposite (!value)
+//     - end loop
+//   - end loop
+//   - return filtered array where value = true 
+//
+
+
+function lightsOn(switches) {
+  var result = [];
+  var lights = new Array(switches).join().split(',').map(function() {return false;});
+
+  for (var i = 1; i < switches + 1; i += 1) {
+    for (var j = i - 1; j < lights.length; j += i) {
+      lights[j] = !lights[j];
+    };
+  };
+
+  lights.forEach(function(light, index) {
+    if (light === true) result.push(index + 1);
+  });
+
+  return result;
+}
+
+function lightsOn2(switches) {
+  var result = [];
+  var value = 1;
+  var increment = 3;
+
+  do {
+    result.push(value);
+    value += increment
+    increment += 2;
+  } while (value <= switches);
+
+  return result;
+}
+
+//console.log(lightsOn(5));     //  [1, 4]
+//console.log(lightsOn(100));     //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+//console.log(lightsOn2(5));     //  [1, 4]
+//console.log(lightsOn2(100));   //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+// print a diamond
+// problem:
+//   parameter: n
+//   n is the height and width of the grid the diamond is sitting in
+//   input will always be odd
+//   and greater than 0
+// in: odd integer greater than 0
+// out: diamond printed to screen:
+// diamond(1)
+// *
+// diamond(3)
+//  *
+// ***
+//  *
+// diamond(5)
+// ..*
+// .*** 
+// *****
+// .***
+// ..*
+//
+// alg:
+//   loop 1 to 9, increment by 2
+//     spaceCount = (length - index) / 2
+//     log spaceCount spaces + index * chars
+//   end loop
+//   loop 9 to 1, increment by 2
+//     spaceCount = (length - index) / 2
+//     log spaceCount spaces + index * chars
+//   end loop
+//
+function diamond(size) {
+  for (var i = 1; i <= size; i += 2) {
+    logDiamondRow(size, i);
+  }
+
+  for (i = size - 2; i >= 1; i -= 2) {
+    logDiamondRow(size, i);
+  }
+
+  return '';
+}
+
+function logDiamondRow(length, starCount) {
+  var spaceCount = (length - starCount) / 2;
+  console.log(' '.repeat(spaceCount) + '*'.repeat(starCount));
+}
+
+//console.log(diamond(1));
+//console.log(diamond(3));
+//console.log(diamond(9));
+//console.log(diamond(11));
+
+// hollow diamond
+// given n that is a positive odd integer output to screen a hollow diamond
+// hollowDiamond(3);
+//  *
+// * *
+//  *
+// hollowDiamond(9);
+// ....*       // 4 _ 1 *
+// ...*.*      // 3 _ *.*
+// ..*...*     // 2 _ *...*
+// .*.....*    // 1 _ *.....*
+// *.......*   // 0 _ *.......*
+//  *.....*
+//   *...*
+//    *.*
+//     *
+//
+// alg
+//   loop 1 to 9 increment by 2
+//     outerSpaceCount = (length - index) / 2
+//     innerSpaceCount = length - (2 * (outerSpaceCount + 1))
+//     leftSide = ' '.repeat(outerSpaceCount) + '*'
+//     rightSide = ' '.repeat(innerSpaceCount) + '*' 
+//       but not * if innerSpaceCount is 0
+//     log left + right
+//   end loop
+
+function hollowDiamond(size) {
+  for (var i = 1; i <= size; i += 2) {
+    logHollowDiamondRow(size, i);
+  }
+
+  for (var i = size - 2; i >= 1; i -= 2) {
+    logHollowDiamondRow(size, i);
+  }
+
+  return '';
+}
+
+function logHollowDiamondRow(length, index) {
+  var outerSpaceCount = (length - index) / 2;
+  var innerSpaceCount = length - (2 * (outerSpaceCount) + 1) - 1;
+  var leftDiamond = ' '.repeat(outerSpaceCount) + '*';
+  var rightDiamond;
+
+  if (innerSpaceCount <= 0) {
+    rightDiamond = '';
+  } else {
+    rightDiamond = ' '.repeat(innerSpaceCount) + '*';
+  }
+
+  console.log(leftDiamond + rightDiamond);
+}
+
+//console.log(hollowDiamond(1));
+//console.log(hollowDiamond(3));
+//console.log(hollowDiamond(9));
+//console.log(hollowDiamond(51));
+
+// abc blocks
+// problem:
+//   given a set of 13 spelling blocks
+//   each block has two letters
+//   block cant be used more than once
+//   return true if a given word can be spelled
+//   return false if a given word can't be spelled
+//   assume lowercase
+//   assume at least 1 letter word
+// in: string
+// out: boolean
+// data: array of array of blocks
+//       string converted to array for iteration
+// alg:
+//   initialze blocks array
+//   initialize used letters array
+//   convert string to array of letters - split
+//   for loop array of letters
+//     if usedLetters includes letter then return false
+//     for loop array of blocks
+//       if block includes letter 
+//         add both block letters to used letters
+//         remove block from array with splice(index, 1)
+//       end if
+//     end loop
+//   end loop
+//   return true
+
+function isBlockWord(word) {
+  var blocks = [['b', 'o'], ['x', 'k'], ['d', 'q'],
+                ['c', 'p'], ['n', 'a'], ['g', 't'],
+                ['r', 'e'], ['f', 's'], ['j', 'w'],
+                ['h', 'u'], ['v', 'i'], ['l', 'y'],
+                ['z', 'm']];
+
+  var usedLetters = [];
+  var letters = word.split('');
+  var letter;
+  var block;
+
+  for (var i = 0; i < letters.length; i += 1) {
+    letter = letters[i];
+    if (usedLetters.includes(letter)) {
+      return false;
+    }
+    
+    for (var j = 0; j < blocks.length; j += 1) {
+      block = blocks[j]; 
+      if (block.includes(letter)) {
+        usedLetters.push(block[0], block[1]);
+        blocks.splice(j, 1);
+        break;
+      };
+    };
+  };
+
+  return true;
+}
+
+
+console.log(isBlockWord('batch')) // true
+console.log(isBlockWord('butch')) // false
+console.log(isBlockWord('jest'))  // true
+console.log(isBlockWord('modulate')) // true
 
