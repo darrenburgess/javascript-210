@@ -2232,537 +2232,76 @@ function lightsOn2(switches) {
   return result;
 }
 
-//console.log(lightsOn(5));     //  [1, 4]
-//console.log(lightsOn(100));     //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-//console.log(lightsOn2(5));     //  [1, 4]
-//console.log(lightsOn2(100));   //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+console.log(lightsOn(5));     //  [1, 4]
+console.log(lightsOn(100));     //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+console.log(lightsOn2(5));     //  [1, 4]
+console.log(lightsOn2(100));   //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
-// print a diamond
-// problem:
-//   parameter: n
-//   n is the height and width of the grid the diamond is sitting in
-//   input will always be odd
-//   and greater than 0
-// in: odd integer greater than 0
-// out: diamond printed to screen:
-// diamond(1)
-// *
-// diamond(3)
-//  *
-// ***
-//  *
-// diamond(5)
-// ..*
-// .*** 
-// *****
-// .***
-// ..*
-//
-// alg:
-//   loop 1 to 9, increment by 2
-//     spaceCount = (length - index) / 2
-//     log spaceCount spaces + index * chars
-//   end loop
-//   loop 9 to 1, increment by 2
-//     spaceCount = (length - index) / 2
-//     log spaceCount spaces + index * chars
-//   end loop
-//
-function diamond(size) {
-  for (var i = 1; i <= size; i += 2) {
-    logDiamondRow(size, i);
-  }
 
-  for (i = size - 2; i >= 1; i -= 2) {
-    logDiamondRow(size, i);
-  }
+//Write a function that takes a two dimensional array as the argument, turn it into a flat array and with all the duplicated elements removed. Treat numbers and number strings, for example, 1 and '1' as duplicates, and keep the one that comes first in the flattened array.
+//Problem
+//  In: array of arrays
+//  out: flattened array
+//  remove all duplicates
+//  numbers and strings are considered duplicates 1 = '1'
+//  retain the original order
+//structure: arrays
+//alg:
+//  initialize a result []
+//  forEach loop array of arrays
+//    forEach loop the current array
+//      if result hasMatch current value == ??
+//        push current value result
+//    end loop
+//  end loop
+//  return result
+//  hasMatch
+//    loop array and return true if current element == value
+//      matching either primitive value
+//      branch on if it is an object
+//      if object
+//        convert keys to array
+//        loop the array of keys
+//  null == undefined !!!
+//          
+//alg:
+//  initialize result []
+//  reduce array of arrays (acc = result)
+//    forEach loop the current array
+//      if result !includes currenValue then push to acc 
 
-  return '';
+function flatten2(arrays) {
+  var result = [];
+
+  arrays.forEach(function(array) {
+    array.forEach(function(element) {
+      if (!hasMatch(result, element) ) {
+        result.push(element);
+      }
+    });
+  });
+
+  return result;
 }
 
-function logDiamondRow(length, starCount) {
-  var spaceCount = (length - starCount) / 2;
-  console.log(' '.repeat(spaceCount) + '*'.repeat(starCount));
-}
-
-//console.log(diamond(1));
-//console.log(diamond(3));
-//console.log(diamond(9));
-//console.log(diamond(11));
-
-// hollow diamond
-// given n that is a positive odd integer output to screen a hollow diamond
-// hollowDiamond(3);
-//  *
-// * *
-//  *
-// hollowDiamond(9);
-// ....*       // 4 _ 1 *
-// ...*.*      // 3 _ *.*
-// ..*...*     // 2 _ *...*
-// .*.....*    // 1 _ *.....*
-// *.......*   // 0 _ *.......*
-//  *.....*
-//   *...*
-//    *.*
-//     *
-//
-// alg
-//   loop 1 to 9 increment by 2
-//     outerSpaceCount = (length - index) / 2
-//     innerSpaceCount = length - (2 * (outerSpaceCount + 1))
-//     leftSide = ' '.repeat(outerSpaceCount) + '*'
-//     rightSide = ' '.repeat(innerSpaceCount) + '*' 
-//       but not * if innerSpaceCount is 0
-//     log left + right
-//   end loop
-
-function hollowDiamond(size) {
-  for (var i = 1; i <= size; i += 2) {
-    logHollowDiamondRow(size, i);
-  }
-
-  for (var i = size - 2; i >= 1; i -= 2) {
-    logHollowDiamondRow(size, i);
-  }
-
-  return '';
-}
-
-function logHollowDiamondRow(length, index) {
-  var outerSpaceCount = (length - index) / 2;
-  var innerSpaceCount = length - (2 * (outerSpaceCount) + 1) - 1;
-  var leftDiamond = ' '.repeat(outerSpaceCount) + '*';
-  var rightDiamond;
-
-  if (innerSpaceCount <= 0) {
-    rightDiamond = '';
-  } else {
-    rightDiamond = ' '.repeat(innerSpaceCount) + '*';
-  }
-
-  console.log(leftDiamond + rightDiamond);
-}
-
-//console.log(hollowDiamond(1));
-//console.log(hollowDiamond(3));
-//console.log(hollowDiamond(9));
-//console.log(hollowDiamond(51));
-
-// abc blocks
-// problem:
-//   given a set of 13 spelling blocks
-//   each block has two letters
-//   block cant be used more than once
-//   return true if a given word can be spelled
-//   return false if a given word can't be spelled
-//   assume lowercase
-//   assume at least 1 letter word
-// in: string
-// out: boolean
-// data: array of array of blocks
-//       string converted to array for iteration
-// alg:
-//   initialze blocks array
-//   initialize used letters array
-//   convert string to array of letters - split
-//   for loop array of letters
-//     if usedLetters includes letter then return false
-//     for loop array of blocks
-//       if block includes letter 
-//         add both block letters to used letters
-//         remove block from array with splice(index, 1)
-//       end if
-//     end loop
-//   end loop
-//   return true
-
-function isBlockWord(word) {
-  var blocks = [['b', 'o'], ['x', 'k'], ['d', 'q'],
-                ['c', 'p'], ['n', 'a'], ['g', 't'],
-                ['r', 'e'], ['f', 's'], ['j', 'w'],
-                ['h', 'u'], ['v', 'i'], ['l', 'y'],
-                ['z', 'm']];
-
-  var usedLetters = [];
-  var letters = word.split('');
-  var letter;
-  var block;
-
-  for (var i = 0; i < letters.length; i += 1) {
-    letter = letters[i];
-    if (usedLetters.includes(letter)) {
-      return false;
+function hasMatch(array, value) {
+  for (var i = 0; i < array.length; i += 1) {
+    if (array[i] === value) {
+      return true;
     }
-    
-    for (var j = 0; j < blocks.length; j += 1) {
-      block = blocks[j]; 
-      if (block.includes(letter)) {
-        usedLetters.push(block[0], block[1]);
-        blocks.splice(j, 1);
-        break;
-      };
-    };
-  };
-
-  return true;
-}
-
-//console.log(isBlockWord('batch')) // true
-//console.log(isBlockWord('butch')) // false
-//console.log(isBlockWord('jest'))  // true
-//console.log(isBlockWord('modulate')) // true
-
-// Caesar Cipher
-// problem:
-//   plain text encryption by substitution
-//   letters are shifted a fixed number of positions
-//   the shift value is the key
-//   A becomes D, B becomes E if shift is 3
-//   Y becomes B (wraps around end)
-//   only encrypts upper and lower case
-//   don't encrypt numbers or non-alpha or spaces
-//   preserve case
-//   allow negative numbers
-// examples/tests  
-// data structure
-//   convert string to array of characters
-//   option1 use the ascii code value 65-90 and 97-122
-//   option2 create a reference array or string of upper and lower case chars
-// algorithm:
-//   initialize:
-//   split string to letters array
-//   convert shift by subtracing 26 until it is 26 or less
-//   convert negative shift by adding 26 until it is > 1
-//   map the array of letters
-//     if not alpha (regex), return the letter
-//     store if upper or lower case
-//     obtain the charCodeAt(0)
-//     add shiftValue to charCode
-//     if upperCase and newCharCode > 90
-//       subtract 26
-//     if lowerCase and newCharCode > 122
-//       subtract 26
-//     convert newCharCode to letter
-//     return letter
-//   end map
-//   join the mapped array
-//   return joined array
-//     
-//
-//  
-
-function caesarEncrypt(string, shiftValue) {
-  var encryptedString;
-
-  shiftValue = convertShift(shiftValue);
-
-  encryptedString = string.split('').map(function(character) {
-    return caesarConvertCharacter(character, shiftValue);
-  });
-
-  return encryptedString.join('');
-}
-
-function caesarConvertCharacter(character, shiftValue) {
-  var newCharCode;
-  var isUpperCase;
-  var isLowerCase;
-
-  if (/[^A-Za-z]/.test(character)) {
-    return character;
   }
 
-  if (/[A-Z]/.test(character)) isUpperCase = true; 
-  if (/[a-z]/.test(character)) isLowerCase = true; 
-
-  newCharCode = character.charCodeAt(0) + shiftValue;
-
-  if ((isUpperCase && newCharCode > 90) || (isLowerCase && newCharCode > 122)) {
-    newCharCode -= 26;
-  };
-
-  return String.fromCharCode(newCharCode);
+  return false;
 }
 
-function convertShift(shiftValue) {
-  if (shiftValue >= 26) {
-    return convertShift(shiftValue - 26);
-  } else if (shiftValue < 0) {
-    return convertShift(shiftValue + 26);
-  }
-    
-  return shiftValue
-}
+//array1 = [[2, 3], [2, 3]] // [2, 3]
+//console.log(flatten(array1));
 
-//console.log(caesarEncrypt('A', 0));  // 'A'
-//console.log(caesarEncrypt('A', 3));  // 'D'
-//console.log(caesarEncrypt('y', 5));  // 'd'
-//console.log(caesarEncrypt('a', 47));  // 'v'
-//console.log(caesarEncrypt('T', 51));  // 'S'
-//console.log(caesarEncrypt('Z', 1));  // 'A'
-//console.log(caesarEncrypt('Z', 53));  // 'Z'
-//console.log(caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 25));  // 'ZABCDEFGHIJKLMNOPQRSTUVWXY'
-//console.log(caesarEncrypt('The quick brown fox jumps over the lazy dog!', 5));  // 'Ymj vznhp gwtbs ktc ozrux tajw ymj qfed itl!'
-//console.log(caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', 2));  // 'Vjgtg ctg, cu aqw ecp ugg, ocpa rwpevwcvkqpu. Tkijv?; Ytqpi?'
+//array2 = [ ['2', '3'], [2, 3] ]  // ['2', '3']
+//console.log(flatten(array2));
 
-//console.log(caesarEncrypt('A', -3));  // 'X'
-//console.log(caesarEncrypt('y', -5));  // 'T'
-//console.log(caesarEncrypt('a', -47));  // 'f'
-//console.log(caesarEncrypt('ABCDEFGHIJKLMNOPQRSTUVWXYZ', -25));  // ''
-//console.log(caesarEncrypt('The quick brown fox jumps over the lazy dog!', -25));  // ''
-//console.log(caesarEncrypt('There are, as you can see, many punctuations. Right?; Wrong?', -2));  // ''
+//array3 = [ ['2', '3', 5, 2, 4, 9], [2, 3, 6] ]  // ['2', '3', 5, 6, 4, 9]
+//console.log(flatten(array3));
 
- //Vigenere Cipher
- //problem:
-   //is a form of caesar cipher
-   //a key word is supplied in addition to the string
-   //each char in the key word is assigned a shift value
-     //based on its index in the alphabet.  a = 0, b = 1 etc
-     //case does not matter for the key a = 0, A = 0
-     //case does not change the encryption
-   //each keyWordCharacter as a keyValue based on the index
-     //this value is used to encrypt each character in the string using a 
-     //caesar cipher algorithm
-   //the keyWorkCharacters are used sequentially, and rotated
-     //to encrypt each character in the string. 
-   //non-alpha characters are ignored and do not cause rotation of the key
-   //must include original spacing and non-alpha characters in result
- //examples
- //data:
-   //convert string to array for iteration
-   //convert key to array of shift values
- //alg:
-   //split string to array: letters
-   //map key.toLowerCase to shiftValues: charCodeAt(0) - 97
-   //keyIndex = -1; 
-   //map letters array => letter
-     //if letter is alpha
-       //increment keyIndex, but set to 0 if key === length key - 1
-       //return caesarConvertCharacter(letter, shiftValues[keyIndex])
-     //else
-       //return character
-     //end if
-   //end map
-   //return joined array
-
-function vigenereCipher(string, key) {
-  var letters = string.split('');
-  var shiftValues = key.split('').map(function(letter) { return letter.charCodeAt(0) - 97; });
-  var keyIndex = -1;
-
-  var encryptedArray = letters.map(function(letter) {
-    if (/[a-zA-z]/.test(letter)) {
-      keyIndex < key.length - 1 ? keyIndex += 1 : keyIndex = 0;
-      return vigenereConvertCharacter(letter, shiftValues[keyIndex]); 
-    } else {
-      return letter;
-    };
-  });
-
-  return encryptedArray.join('');
-}
-
-function vigenereConvertCharacter(character, shiftValue) {
-  var newCharCode;
-  var isUpperCase;
-  var isLowerCase;
-
-  if (/[A-Z]/.test(character)) isUpperCase = true; 
-  if (/[a-z]/.test(character)) isLowerCase = true; 
-
-  newCharCode = character.charCodeAt(0) + shiftValue;
-
-  if ((isUpperCase && newCharCode > 90) || (isLowerCase && newCharCode > 122)) {
-    newCharCode -= 26;
-  };
-
-  return String.fromCharCode(newCharCode);
-}
-
-//console.log(vigenereCipher("Pineapples don't go on pizzas!", "meat"));
-// "Bmnxmtpeqw dhz'x gh ar pbldal!'"
-
- //Seeing Stars
- //problem: 
-   //build an 8 pointed star
-   //output to console
-   //argument is the width and height
-   //minimum size is 7
-   //even numbers probably won't work, so assume odd input
-   //assume no invalid input
- //example:
-   //star(7)
-   //logs
-    //*  *  *
-     //* * *
-      //***
-    //******* 
-      //***
-     //* * *
-    //*  *  *
-
-   //star(9)
-   //logs
-   //*   *   *
-    //*  *  *
-     //* * *
-      //***
-   //*********
-      //***
-     //* * *
-    //*  *  *
-   //*   *   *
-
-   //star(11)
-   //logs
-  //*    *    *
-   //*   *   *
-    //*  *  *
-     //* * *
-      //***
-  //***********
-      //***
-     //* * *
-    //*  *  *
-   //*   *   *
-  //*    *    *
-
- //Data structure
- //In: number
- //Out: string console output
- 
- //algorithm:
-   //initialize pointSpread = size - 6
-   //initialize spreadIterate = -1
-   //intialize spaces = 0
-   //initialize variables for '*' and ' '
-   //for loop from 0 to size
-     //if pointSpread = -1
-       //log '*'.repeat('*')
-       //spreadIterate = 1
-       //subtract 1 from spaces
-     //else
-       //log a string: * + ' '.repeat(pointSpread) + * + spaces + *
-       //iterate spaces count
-     //end if
-     //iterate pointSpread
-   //end loop
-
-function star(size) {
-  var pointSpread = Math.floor(size/2) - 1;
-  var spaces = 0;
-  var spreadIterate = -1;
-  var point = '*';
-  var space = ' ';
-
-  for (var i = 0; i < size; i += 1) {
-    if (pointSpread === -1) {
-      console.log(point.repeat(size));
-      spreadIterate = 1;
-      spaces -= 1;
-    } else {
-      console.log(space.repeat(spaces) + point + space.repeat(pointSpread) + point + space.repeat(pointSpread) + point)
-      spaces -= spreadIterate;
-    };
-
-    pointSpread += spreadIterate;
-  }
-}
-
-//console.log(star(21));
-
-// measure a room
-// problem:
-//   get user input for the length and width of a room 
-//   calculate and display the area in meters and square feet
-//   round to two decimal places
-// example:
-//   user enters 10 and 7. 
-//   log "The area of the room is 70 square meters (753.47 square feet)"
-// data: 
-//   user input
-// alg:
-//   loop to get input
-//     valdiate the input. greater than 0. not empty.
-//   coerce input to number
-//   calculate area in meters and feet
-//   log area in concatinated string
-
-function getInput(type) {
-  do {
-    input = prompt('Enter the ' + type + ':');
-  } while (notValid(input));
-
-  if (input === null) {
-    console.log('user cancelled');
-    abort();
-  };
-
-  return input;
-}
-
-function abort() {
-  throw new Error('');
-}
-
-function notValid(value) {
-  if (parseInt(value) > 0 || value === null) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function squareMeters() {
-  var width = getInput('width'); 
-  var height = getInput('height');
-
-  var squareMeters = (width * height).toFixed(2);
-  var squareFeet = (squareMeters * 10.7639).toFixed(2); 
-
-  console.log('Square meters: ' + squareMeters + ' | Square feet: ' + squareFeet);
-}
-
-// code wars: spy games rebuild your decoder
-function decrypt(code) {
-  // problem: 
-  //   given a string of characters and numbers
-  //   each string separated by a space is represents a character
-  //   decrypt the string based on the numbers
-  //     sum the numbers in a word
-  //     map that number to a character where ' ' = 0, a = 1, b = 2, etc
-  //     wrap around so that 27 = 0, 28 = a etc
-  // examples
-  //   "x20*6<xY y_r9L" --> "8 9" --> "hi"
-  // data structure:
-  //   convert the words to an array of words
-  //   convert each word to a sum of the numbers
-  // alg:
-  //   split the array of words on ' '
-  //   map each word, reducing to the sum of the numbers in that word (default to 0) (convert char to num)
-  //   map the sums to characters based on String.fromCharCode(sum + 96) or ' ' if 0
-  //     use modulo to get the remainer if greater than 26
-  //   join('') the resulting array
-  //   return 
-  
-  var words = code.split(' ');
-  
-  var sumArray = words.map(function(word) {
-    return word.split('').reduce(function(sum, character) {
-      return !isNaN(character) ? sum + parseInt(character) : sum + 0;
-    }, 0);
-  });
-  
-  var characterArray = sumArray.map(function(sum) {
-    if (sum % 27 === 0) {
-      return ' ';
-    } else if (sum > 27) {
-      return String.fromCharCode(sum % 26 + 95)
-    } else {
-      return String.fromCharCode(sum + 96)
-    }
-  });
-  
-  return characterArray.join('')
-}
+//array4 = [[2, 3, { dog: "milo"}], [2,3, { dog: "milo"}]];
+//console.log(flatten(array4));
