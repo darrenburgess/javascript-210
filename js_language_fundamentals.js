@@ -2293,14 +2293,14 @@ function hasMatch(array, value) {
   return false;
 }
 
-array1 = [[2, 3], [2, 3]] // [2, 3]
-console.log(flatten(array1));
+//array1 = [[2, 3], [2, 3]] // [2, 3]
+//console.log(flatten(array1));
 
-array2 = [ ['2', '3'], [2, 3] ]  // ['2', '3']
-console.log(flatten(array2));
+//array2 = [ ['2', '3'], [2, 3] ]  // ['2', '3']
+//console.log(flatten(array2));
 
-array3 = [ ['2', '3', 5, 2, 4, 9], [2, 3, 6] ]  // ['2', '3', 5, 6, 4, 9]
-console.log(flatten(array3));
+//array3 = [ ['2', '3', 5, 2, 4, 9], [2, 3, 6] ]  // ['2', '3', 5, 6, 4, 9]
+//console.log(flatten(array3));
 
-array4 = [[2, 3, { dog: "milo"}], [2,3, { dog: "milo"}]];
-console.log(flatten(array4));
+//array4 = [[2, 3, { dog: "milo"}], [2,3, { dog: "milo"}]];
+//console.log(flatten(array4));
