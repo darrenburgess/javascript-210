@@ -2232,10 +2232,10 @@ function lightsOn2(switches) {
   return result;
 }
 
-console.log(lightsOn(5));     //  [1, 4]
-console.log(lightsOn(100));     //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-console.log(lightsOn2(5));     //  [1, 4]
-console.log(lightsOn2(100));   //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+//console.log(lightsOn(5));     //  [1, 4]
+//console.log(lightsOn(100));     //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+//console.log(lightsOn2(5));     //  [1, 4]
+//console.log(lightsOn2(100));   //  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
 //Write a function that takes a two dimensional array as the argument, turn it into a flat array and with all the duplicated elements removed. Treat numbers and number strings, for example, 1 and '1' as duplicates, and keep the one that comes first in the flattened array.
 //Problem
@@ -2304,3 +2304,341 @@ function hasMatch(array, value) {
 
 //array4 = [[2, 3, { dog: "milo"}], [2,3, { dog: "milo"}]];
 //console.log(flatten(array4));
+
+function volleyballPositions(formation, k) {
+  // problem:
+  //  predict the initial position given the current position and the number of times 
+  //    the serve has changed (k)
+  //  the server rotates clockwise
+  //  the numbers decend.  2 becomes 1, 3 becomes 2, 1 becomes 6
+  // input: array of position arrays
+  //        the string PlayerX denotes a player is in a position
+  //        empty means there is no player there
+  // output: array of positions arrays equal to the original position
+  // solution: to get the original position rotate backwards k times
+  //           1 becomes 2, 6 becomes 1, 2 becomes 3
+  // data: structure is an array of arrays
+  // 0 5 0
+  // 4 0 2
+  // 0 3 0
+  // 6 0 1
+  
+  // x,x 0,1 x,x
+  // 1,0 x,x 1,2
+  // x,x 2,1 x,x
+  // 3,0 x,x 3,2
+  
+  // clockwise array: [[0,1], [1,2], [3,2], [2,1], [3,0], [1,0]]
+  // create an object structure:
+  //   {'player1': [0,1], 'player2': [1,2], 'player3': [3,2],
+  //    'player4': [2,1], 'player5': [3,0], 'player6': [1,0]}
+  // and then rotate the player string to the next position
+  //
+  // or loop through the clockwise order get the next value and 
+  //   set that position equal to the current
+  //   or perhaps vise versa- like look backwards
+  //
+  // algorithm:
+  //   create the clockwise order array
+  //   create a new array from formation array (don't want to mutate caller)
+  //   for loop from 0 to < k
+  //     forEach loop the order array (clockwise or counter?)
+  //       get the value at the combination of indexes
+  //
+}
+
+var me = {
+  firstName: 'Jane',
+  lastName: 'Doe',
+};
+
+var friend = {
+  firstName: 'tom',
+  lastName: 'smith',
+};
+
+var you = {
+  firstName: 'test',
+  lastName: 'person',
+};
+
+var him = {
+  firstName: 'Joe',
+  lastName: 'Smith',
+}
+
+var him2 = {
+  firstName: 'Joe',
+  lastName: 'Smith',
+}
+
+function fullName(person) {
+  console.log(person.firstName);
+}
+
+function rollCall(collection) {
+  collection.forEach(fullName);
+}
+
+var people = {
+  index: 0,
+  collection: [],
+
+  fullName: function(person) {
+    console.log(person.firstName +' ' + person.lastName + ' ' + person.id);
+  },
+
+  rollCall: function() {
+    this.collection.forEach(this.fullName);
+  },
+
+  add: function(person) {
+    if (this.isInvalidPerson(person)) {
+      return;
+    }
+
+    person.id = this.getNextIndex();
+    this.collection.push(person);
+
+    this.incrementIndex();
+  },
+
+  getNextIndex: function() {
+    return this.index;
+  },
+
+  incrementIndex: function() {
+    this.index += 1;
+  },
+
+  getIndex: function(person) {
+    var index = -1;
+    this.collection.forEach(function(comparator, i) {
+      if (comparator.firstName === person.firstName && comparator.lastName === person.lastName) {
+        index = i;
+      }
+    });
+
+    return index;
+  },
+
+  getIndexById: function(id) {
+    var index = -1;
+    this.collection.forEach(function(comparator, i) {
+      if (collection.id = id) {
+        index = i;
+      }
+    });
+  },
+
+  remove: function(person) {
+    if(this.isInvalidPerson(person)) {
+      return;
+    }
+
+    var index = this.getIndex(person);
+    if (index === -1) {
+      return;
+    }
+
+    this.collection.splice(index,1);
+  },
+
+  isInvalidPerson: function(person) {
+    return typeof person.firstName !== 'string' || typeof person.lastName !== 'string';
+  },
+
+  get: function(person) {
+    if (this.isInvalidPerson(person)) {
+      return;
+    }
+
+    return this.collection[this.getIndex(person)];
+  },
+
+  updateById: function(id) {
+    
+  },
+
+  update: function(person) {
+    if (this.isInvalidPerson(person)) {
+      return;
+    }
+
+    var existingPersonId = this.getIndex(person);
+
+    if (existingPersonId === -1) {
+      this.add(person);
+    } else {
+      this.collection[existingPersonId] = person;
+    }
+  },
+};
+
+var invoices = {
+  unpaid: [],
+  paid: [],
+
+  add: function(clientName, amountOwed) {
+    var invoice = {
+      clientName: clientName,
+      amountOwed: amountOwed,
+    };
+
+    this.unpaid.push(invoice);
+  },
+
+  totalDue: function() {
+    return this.unpaid.reduce(function(sum, invoice) {
+      return sum += invoice.amountOwed;
+    }, 0);
+  },
+
+  totalPaid: function() {
+    return this.paid.reduce(function(sum, invoice) {
+      return sum += invoice.amountOwed;
+    }, 0);
+  },
+
+  payInvoice: function(clientName) {
+    var unpaidInvoices = [];
+    for (var i = 0; i < this.unpaid.length; i += 1) {
+      if (clientName === this.unpaid[i].clientName) {
+        this.paid.push(this.unpaid[i]);
+      } else {
+        unpaidInvoices.push(this.unpaid[i]);
+      }
+    }
+
+    this.unpaid = unpaidInvoices;
+  },
+};
+
+var sedan = {
+  speed: 0,
+  rate: 8,
+
+  accelerate: function() {
+    this.speed += this.rate;
+  },
+};
+
+function makeCar(accelerationRate, brakingRate) {
+  return {
+    speed: 0,
+    accelerationRate: accelerationRate,
+    brakingRate: brakingRate,
+    accelerate: function() {
+      this.speed += this.accelerationRate;
+    },
+
+    brake: function() {
+      this.speed -= this.brakingRate;
+      if (this.speed < 0) this.speed = 0;
+    },
+  };
+}
+
+function testWrap() {
+  function testing() {
+    var object = {
+      foo: function() {
+        return 'this: ' + this;
+      },
+    };
+
+    console.log(object.foo())
+
+    var bar = object.foo;
+    console.log(bar());
+  }
+
+  testing();
+}
+
+function testThis() {
+  var wrapperObject = {
+    testing: function() {
+      var object = {
+        foo: function() {
+          return 'this: ' + this;
+        },
+      };
+
+      function insideFunc() {
+        console.log(object.foo())
+        var bar = object.foo;
+        console.log(bar());
+      }
+
+      insideFunc();
+    },
+  }
+  wrapperObject.testing()
+}
+
+function bindDemo() {
+  var a = 'goodbye';
+
+  var object = {
+    a: 'hello',
+    b: 'world',
+    foo: function() {
+      return this.a + ' ' + this.b;
+    },
+  };
+
+  var bar = object.foo;
+  console.log(bar());  // undefined undefined
+
+  var baz = object.foo.bind(object);
+  console.log(baz());  // hello world 
+
+  var object2 = {
+    a: 'hi',
+    b: 'there',
+  };
+
+  console.log(baz.call(object2));  // hello world
+
+  object.a = 'HELLO';
+  console.log(baz.call(object2)); // HELLO world
+
+  baz = object.foo.bind(object2);
+  console.log(baz.call(object2));  // hi there
+}
+
+function bindDemo2() {
+  var greetings = {
+    morning: 'good morning ',
+    afternoon: 'good afternoon ',
+    evening: 'good evening ',
+
+    greeting: function(name) {
+      var currentHour = (new Date()).getHours();
+
+      console.log(this);
+
+      if (currentHour < 12) {
+        console.log(this.morning + name);
+      } else if (currentHour < 18) {
+        console.log(this.afternoon + name);
+      } else {
+        console.log(this.evening + name);
+      }
+    },
+  }
+
+  greetings.greeting('Darren'); // good afternoon darren
+
+  var spanishWords = {
+    morning: 'Buenos dias ',
+    afternoon: 'Buenas tardes ',
+    evening: 'Buena noches ',
+  }
+
+  var spanishGreeter = greetings.greeting.bind(spanishWords);
+
+  spanishGreeter('Jose');  // buenos ??? Jose
+  spanishGreeter('Juan');  // buenos ??? juan
+}
