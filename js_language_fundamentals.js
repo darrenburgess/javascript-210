@@ -301,7 +301,7 @@ function pattern(n) {
 // write indexOf() and lastIndexOf() function that return the position of a substring
 // lastIndexOf() returns the index of the last instance of the string
 
-function indexOf(firstString, secondString) {
+function anotherIndexOf(firstString, secondString) {
   var lengthFirst = firstString.length;
   var lengthSecond = secondString.length;
   var remainingChars;
@@ -653,7 +653,7 @@ function shift(arr) {
   return first;
 }
 
-function indexOf(array, value) {
+function myIndexOf(array, value) {
   var result = -1;
 
   for (var i = 0; i <= array.length; i++) {
@@ -3567,4 +3567,117 @@ function bindDemo2() {
 
   spanishGreeter('Jose');  // buenos ??? Jose
   spanishGreeter('Juan');  // buenos ??? juan
+}
+
+function makeCounterLogger(startNumber) {
+  return function count(countToNumber) {
+    for (var i = 0; i <= Math.abs(countToNumber - startNumber); i += 1) {
+      if (countToNumber > startNumber) {
+        console.log(startNumber + i);
+      } else {
+        console.log(startNumber - i);
+      }
+    }
+  }
+}
+
+//var countLog = makeCounterLogger(5);
+//countLog(8);
+//countLog(2);
+
+// When the returned function is called with a String, it should add that argument to an array of items if it doesn't yet exist.
+// If the element already exists in the list, then it should be removed.
+// If the returned function is called without any arguments, it should log all of the elements in the list to the console.
+
+function makeList() {
+  var list = [];
+  return function(str) {
+    if (str === undefined) {
+      if (list.length) {
+        list.forEach(function(item) {
+          console.log(item);
+        });
+      } else {
+        console.log('no items');
+      }
+    } else if (list.includes(str)) {
+      list.splice(list.indexOf(str), 1);
+      console.log(str + ' removed');
+    } else {
+      list.push(str);
+      console.log(str + ' added');
+    }
+  }
+}
+
+//Write a JavaScript function named makeMultipleLister that, when invoked and passed a number, returns a function that logs every multiple of that number less than 100. It should be used like this:
+
+function makeMultipleLister(number) {
+  return function() {
+    for (var i = number; i < 100; i += number) {
+      console.log(i);
+    }
+  }
+}
+
+// Write a program that uses two JavaScript functions, add and subtract, to manipulate a running total value. When either function is invoked with a number, it should add or subtract the passed value from the total and then log the total to the console
+
+var numberTotal = 0;
+
+function add(number) {
+  numberTotal += number;
+  console.log(numberTotal);
+}
+
+function subtract(number) {
+  numberTotal -= number;
+  console.log(numberTotal);
+}
+
+// Write a function named later that takes two arguments: a function and an argument to be passed to that function at a future time. later should return a new function that, when invoked, calls the function that was passed in along with the argument that was passed in.
+
+function later(func, arg) {
+  return function() {
+    func(arg);
+  }
+}
+
+function startup() {
+  var status = 'ready';
+  return function() {
+    console.log('The system is ready.');
+  }
+}
+
+//var ready = startup();
+
+// create a function that returns an object with a property that is a list and methods add, remove and list that perform those actions on the list
+
+function makeList2() {
+  var list = [];
+
+  return {
+    printList: function() {
+      if (!list.length) {
+        console.log('list is empty');
+      } else {
+        list.forEach(function(item) {
+          console.log(item);
+        });
+      }
+    },
+
+    add: function(item) {
+      list.push(item);
+    },
+
+    remove: function(item) {
+      if (list.includes(item)) {
+        list.splice(list.indexOf(item), 1);
+        console.log(item + ' removed');
+      } else {
+        console.log(item + ' is not in the list');
+      }
+    }
+  };
 }
