@@ -19,6 +19,14 @@ function countImages(node) {
   }
 }
 
+function linkToRed(node) {
+  if (node.nodeName === 'A') {
+    node.setAttribute('style', 'color: red');
+  }
+}
+
 walk(document, countImages);
 console.log(imageCount);
 console.log(pngCount);
+
+walk(document, linkToRed);
