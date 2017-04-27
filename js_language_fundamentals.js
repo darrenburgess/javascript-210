@@ -3681,3 +3681,18 @@ function makeList2() {
     }
   };
 }
+
+function partial(func, arg1) {
+  return function(arg2) {
+    func(arg1, arg2);
+  }
+}
+
+function greeter(greeting, name) {
+  var capitalized = greeting.charAt(0).toUpperCase() + greeting.slice(1);
+  var message = greeting + ", " + name + "!";
+  console.log(message);
+}
+
+//var sayHello = partial(greeter, 'hello');
+//var sayHi = partial(greeter, 'hi');

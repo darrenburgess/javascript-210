@@ -1,12 +1,63 @@
+function makeAccount(accountNumber) {
+  var balance = 0;
+  var transactions = [];
 
-function makeCounterLogger(startNumber) {
-  return function count(countToNumber) {
-    for (var i = 0; i <= Math.abs(countToNumber - startNumber); i += 1) {
-      countToNumber > startNumber ? console.log(startNumber + i) : console.log(startNumber - i);
-    }
+  return {
+    deposit: function(amount) {
+      this.logTransaction('deposit', amount);
+      balance += amount;
+      return amount;
+    },
+
+    withdraw: function(amount) {
+      if (amount > balance) {
+        amount = balance;
+      }
+
+      this.logTransaction('withdrawal', amount);
+      balance -= amount;
+      return amount;
+    },
+
+    getBalance: function() {
+      return balance;
+    },
+
+    logTransaction: function(type, amount) {
+      transactions.push({
+        type: type,
+        amount: amount,
+      });
+    },
+
+    transactions: function() {
+      return transactions;
+    },
+
+    getAccountNumber: function() {
+      return accountNumber;
+    },
   }
 }
 
-var countLog = makeCounterLogger(5);
-countLog(8);
-countLog(2);
+function makeBank() {
+  var accountNumber = 101;
+  var accounts = [];
+
+  return {
+    openAccount: function() {
+      var account = makeAccount(accountNumber);
+      accounts.push(account);
+      accountNumber += 1;
+      return account;
+    },
+
+    transfer: function(source, destination, amount) {
+      return destination.deposit(source.withdraw(amount));
+    },
+
+    getAccounts: function() {
+      return accounts;
+    },
+  };
+}
