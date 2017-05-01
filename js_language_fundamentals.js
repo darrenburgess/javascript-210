@@ -3696,3 +3696,46 @@ function greeter(greeting, name) {
 
 //var sayHello = partial(greeter, 'hello');
 //var sayHi = partial(greeter, 'hi');
+
+function setTimeOuts() {
+  var startTime = new Date;
+  var endTime;
+
+  setTimeout(function() {
+    setTimeout(function() {
+      endTime = new Date;
+      console.log((endTime - startTime) / 1000);
+      console.log("25 seconds");
+    }, 15000);
+
+    endTime = new Date;
+    console.log((endTime - startTime) / 1000);
+    console.log("10 seconds");
+
+    setTimeout(function() {
+      endTime = new Date;
+      console.log((endTime - startTime) / 1000);
+      console.log("15 seconds");
+    }, 5000);
+
+    endTime = new Date;
+    console.log((endTime - startTime) / 1000);                      // 10 seconds, after d
+    console.log("10 seconds, after");
+  }, 10000);
+
+  setTimeout(function() {
+    endTime = new Date;
+    console.log((endTime - startTime) / 1000);                    // 20 seconds
+    console.log("20 seconds");
+  }, 20000); 
+
+  setTimeout(function() {
+    endTime = new Date;
+    console.log((endTime - startTime) / 1000);                     // 0 seconds   
+    console.log("0 seconds, after");        
+  });
+
+  endTime = new Date;
+  console.log((endTime - startTime) / 1000);                       // 0 seconds
+  console.log("0 seconds");
+}
