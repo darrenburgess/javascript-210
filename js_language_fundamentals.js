@@ -3739,3 +3739,21 @@ function setTimeOuts() {
   console.log((endTime - startTime) / 1000);                       // 0 seconds
   console.log("0 seconds");
 }
+
+function afterNSeconds(seconds, callBack) {
+  setTimeout(callBack, seconds * 1000);
+}
+
+function startCounting() {
+  var count = 0;
+  id = setInterval(function(){
+    count += 1;
+    console.log(count);
+  }, 1000);
+
+  return id;
+}
+
+function stopCounting(id) {
+  clearInterval(id);
+}
