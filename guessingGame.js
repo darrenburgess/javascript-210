@@ -1,66 +1,68 @@
 document.addEventListener('DOMContentLoaded', function(event) {
-  var answer = randomNumber();
+  var answer = getRandomNumber(100);
   var form = document.getElementsByTagName('form')[0];
-  var guessCount = 1;
+  var input = form.querySelector('input');
   var messageParagraph = document.querySelector('p');
   var newGameLink = document.querySelector('a');
-  var guessInput = document.getElementById('guess');
   var submitButton = document.querySelector('[type="submit"]');
+  var guess;
+  var guessCount;
+  var message;
 
-  guessInput.focus();
-  
-  function randomNumber() {
-    return Math.floor(Math.random() * 100) + 1;
+  function getRandomNumber(limit) {
+    return Math.floor(Math.random() * limit) + 1;
   }
 
-  function isNumber(value) {
-    return typeof value === 'number';
+  function checkGuess(guess, answer) {
+    var msg;
+   
+    if (isNaN(guess)) {
+      msg = 'Guess must be a number';
+    } else if (guess < answer) {
+      msg = 'Guess was less than my answer';
+    } else if (guess > answer) {
+      msg = 'Guess was greater than my answer';
+    } else if (guess === answer) {
+      msg = 'You guessed ' + guess + ' correctly in ' + guessCount + ' attempts';
+      toggleSubmitButton();
+    }
+
+    if (!isNaN(guess)) guessCount += 1;
+
+    messageParagraph.textContent = msg;
   }
 
   function toggleSubmitButton(on) {
     if (submitButton.disabled === true || on) {
       submitButton.disabled = false;
-      guessInput.disabled = false;
-      guessInput.focus();
-      submitButton.style.background = 'linear-gradient(to bottom, #CC183E 0%, #780E24 100%';
+      input.disabled = false;
+      input.focus();
+      submitButton.style.background = 'linear-gradient(to bottom, #CC183E 0%, #780E24 100%)';
     } else {
       submitButton.disabled = true;
-      guessInput.disabled = true;
+      input.disabled = true;
       submitButton.style.background = 'grey';
-      newGameLink.focus();
     }
   }
 
-  function returnMessage(guess, answer) {
-    if (guess < answer && isNumber(guess)) {
-      message = 'My number is higher than ' + guess;
-    } else if (guess > answer) {
-      message = 'My number is lower than ' + guess;
-    } else if (guess === answer) {
-      message = 'You guessed correctly in ' + guessCount;
-      toggleSubmitButton();
-    } else {
-      message = 'Please enter a number';
-    }
-
-    return message;
-  }
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    var guess = parseInt(guessInput.value, 10);
-
-    var message = returnMessage(guess, answer);
-
-    if (isNumber(guess)) guessCount += 1;
-    messageParagraph.textContent = message;
-    guessInput.value = '';
-  });
-
-  newGameLink.addEventListener('click', function() {
+  function newGame(event) {
+    answer = getRandomNumber(100);
+    guessCount = 1;
+    input.focus();
     messageParagraph.textContent = 'Guess a number between 1 and 100';
-    guessCount = 0;
-    answer = randomNumber();
     toggleSubmitButton(true);
-  });
+  }
+
+  function submitAnswer(event) {
+    event.preventDefault();
+    guess = parseInt(input.value);
+    checkGuess(guess, answer);
+    input.value = '';
+    input.focus();
+  }
+  
+  form.addEventListener('submit', submitAnswer);
+  newGameLink.addEventListener('click', newGame);
+
+  newGame();
 });
