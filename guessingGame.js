@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(event) {
   var answer = randomNumber();
   var form = document.getElementsByTagName('form')[0];
-  var guessCount = 0;
+  var guessCount = 1;
   var messageParagraph = document.querySelector('p');
   var newGameLink = document.querySelector('a');
   var guessInput = document.getElementById('guess');
