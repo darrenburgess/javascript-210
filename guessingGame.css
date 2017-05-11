@@ -47,7 +47,14 @@ input[type="submit"] {
   border: 1px solid #91112C;
   box-shadow: 0 0 1px 1px #780e24;
   border-radius: 11px;
+}
+
+.button-red {
   background: linear-gradient(to bottom, #CC183E 0%, #780E24 100%);
+}
+
+.button-grey {
+  background: grey;
 }
 
 a { color: #cc183e; }
